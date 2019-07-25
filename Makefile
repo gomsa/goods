@@ -8,3 +8,9 @@ dev:
 
 build:
 	protoc -I . --go_out=plugins=micro:. proto/goods/goods.proto
+	protoc -I . --go_out=plugins=micro:. proto/taxcode/taxcode.proto
+	protoc -I . --go_out=plugins=micro:. proto/unspsc/unspsc.proto
+	protoc -I . --go_out=plugins=micro:. proto/category/category.proto
+	protoc -I . --go_out=plugins=micro:. proto/firm/firm.proto
+	protoc -I . --go_out=plugins=micro:. proto/brand/brand.proto
+	

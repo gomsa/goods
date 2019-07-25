@@ -1,4 +1,4 @@
-package goods
+package taxcode
 
 import (
 	"time"
@@ -14,7 +14,7 @@ var (
 )
 
 // BeforeCreate 插入前数据处理
-func (p *Goods) BeforeCreate(scope *gorm.Scope) (err error) {
+func (p *Taxcode) BeforeCreate(scope *gorm.Scope) (err error) {
 	err = scope.SetColumn("CreatedAt", time.Now().In(local).Format(TimeLayout))
 	if err != nil {
 		return err

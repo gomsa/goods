@@ -15,6 +15,25 @@ service Goods {
     rpc Delete(Request) returns (Response) {}
     // 微服务之间调用
 }
+// 数据库 goods
+message Good {
+    string id = 1;                  // 商品ID(UUID)
+    string name = 2;                // 商品名称
+    string eng_name = 3;            // 英文名称
+    string desc = 4;                // 商品描述
+    int64 status = 5;               // 商品状态(下架-1、上架1、线上2、外卖3)
+    int64 brand_id = 6;             // 品牌ID
+    int64 category_id = 7;          // 商品分类ID
+    int64 department_id = 8;        // 商品分类ID
+    int64 firm_id = 9;              // 所属公司ID
+    int64 unspsc_id = 10;           // 商品及服务编码
+    int64 taxcode_id = 11;          // 税收分类编码
+    int64 cess = 12;                // 税率
+    string created_at = 13;
+    string updated_at = 14;
+    repeated Barcode Barcodes = 15; // 商品条形码详情
+}
+
 // 数据库 barcodes
 message Barcode {
     int64 id = 1;               // 商品条码()
@@ -33,28 +52,15 @@ message Barcode {
     string created_at = 14;
     string updated_at = 15;
 }
-// 数据库 goods
-message Good {
-    string id = 1;              // 商品ID(UUID)
-    string name = 2;            // 商品名称
-    string eng_name = 3;        // 英文名称
-    string desc = 4;            // 商品描述
-    int64 status = 5;           // 商品状态(下架-1、上架1、线上2、外卖3)
-    int64 brand_id = 6;         // 品牌ID
-    int64 category_id = 7;      // 商品分类ID
-    int64 department_id = 8;    // 商品分类ID
-    int64 firm_id = 9;          // 所属公司ID
-    int64 unspsc_id = 10;       // 商品及服务编码
-    int64 taxcode_id = 11;      // 税收分类编码
-    int64 cess = 12;            // 税率
-    string created_at = 13;
-    string updated_at = 14;
-}
-
 // 商品信息 抽象对象不对应数据库(有用查询数据返回)
 message GoodsInfo {
     Good good = 1;                      // 商品主信息
-    repeated Barcode barcode = 2;       // 条码商品详情
+    string brand = 3;                   // (json)品牌信息
+    string category = 4;                // (json)分类信息
+    string department = 5;              // (json)部门信息
+    string firm = 6;                    // (json)所属公司信息
+    string unspsc = 7;                  // (json)国际商品及服务编码
+    string taxcoe = 8;                  // (json)国家税收信息
 }
 
 message ListQuery{
@@ -66,7 +72,6 @@ message ListQuery{
 message Request {
     ListQuery list_query = 1;   // 列表分页请求
     Good good = 2;              // 商品主信息
-    Barcode barcode = 3;        // 条码商品详情
 }
 
 message Response {

@@ -1,8 +1,12 @@
 package migrations
 
 import (
-
+	categoryPB "github.com/gomsa/goods/proto/category"
+	brandPB "github.com/gomsa/goods/proto/brand"
+	firmPB "github.com/gomsa/goods/proto/firm"
 	goodsPB "github.com/gomsa/goods/proto/goods"
+	taxcodePB "github.com/gomsa/goods/proto/taxcode"
+	unspscPB "github.com/gomsa/goods/proto/unspsc"
 	db "github.com/gomsa/goods/providers/database"
 )
 
@@ -75,7 +79,7 @@ func goods() {
 
 // brand 商品商标数据迁移
 func brand() {
-	brand := &goodsPB.Brand{}
+	brand := &brandPB.Brand{}
 	if !db.DB.HasTable(&brand) {
 		db.DB.Exec(`
 			CREATE TABLE brands (
@@ -95,7 +99,7 @@ func brand() {
 
 // category 商品分类数据迁移
 func category() {
-	category := &goodsPB.Category{}
+	category := &categoryPB.Category{}
 	if !db.DB.HasTable(&category) {
 		db.DB.Exec(`
 			CREATE TABLE categorys (
@@ -114,7 +118,7 @@ func category() {
 
 // firm 商品公司数据迁移
 func firm() {
-	firm := &goodsPB.Firm{}
+	firm := &firmPB.Firm{}
 	if !db.DB.HasTable(&firm) {
 		db.DB.Exec(`
 			CREATE TABLE firms (
@@ -133,7 +137,7 @@ func firm() {
 
 // unspsc 商品及服务编码数据迁移
 func unspsc() {
-	unspsc := &goodsPB.Unspsc{}
+	unspsc := &unspscPB.Unspsc{}
 	if !db.DB.HasTable(&unspsc) {
 		db.DB.Exec(`
 			CREATE TABLE unspscs (
@@ -152,14 +156,13 @@ func unspsc() {
 
 // taxcode 税收分类编码数据迁移
 func taxcode() {
-	taxcode := &goodsPB.Taxcode{}
+	taxcode := &taxcodePB.Taxcode{}
 	if !db.DB.HasTable(&taxcode) {
 		db.DB.Exec(`
 			CREATE TABLE taxcodes (
 			id int(32) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
 			parent int(32) DEFAULT NULL COMMENT '上级分类ID,
 			is_parent int(1) DEFAULT NULL COMMENT '是否是上级',
-			parent int(32) DEFAULT NULL COMMENT '上级分类ID,
 			cess varchar(8) DEFAULT NULL COMMENT '税率',
 			duty_free varchar(64) DEFAULT NULL COMMENT '税收减免情况',
 			duty_free_desc varchar(255) DEFAULT NULL COMMENT '税收减免情况详情',

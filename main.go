@@ -2,8 +2,8 @@ package main
 
 import (
 	// 公共引入
-	"github.com/micro/go-log"
 	micro "github.com/micro/go-micro"
+	"github.com/micro/go-micro/util/log"
 	k8s "github.com/micro/kubernetes/go/micro"
 
 	// 执行数据迁移
@@ -23,8 +23,8 @@ func main() {
 	srv.Init()
 
 	// 权限服务实现
-	repo := &service.GoodsRepository{db.DB}
-	goodsPB.RegisterGoodssHandler(srv.Server(), &hander.Goods{repo})
+	repo := &service.Goods{db.DB}
+	goodsPB.RegisterGoodsHandler(srv.Server(), &hander.Goods{repo})
 
 	// Run the server
 	if err := srv.Run(); err != nil {
