@@ -20,7 +20,7 @@ message Brand {
     int64 id = 1;               // 品牌ID
     string name = 2;            // 品牌名称
     string logo = 3;            // 品牌LOGO
-    string desc = 4;            // 品牌描述
+    string description = 4;            // 品牌描述
     string created_at = 5;
     string updated_at = 6;
 }
