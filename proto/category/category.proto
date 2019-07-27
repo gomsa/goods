@@ -15,7 +15,7 @@ service Categorys {
     rpc Delete(Request) returns (Response) {}
     // 微服务之间调用
 }
-// 数据库 Categorys
+// 数据库 categories
 message Category {
     int64 id = 1;               // 分类ID
     int64 parent = 2;           // 上级分类ID

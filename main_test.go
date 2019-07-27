@@ -48,7 +48,7 @@ func TestGetGoods(t *testing.T) {
 
 	req := &goodsPB.Request{
 		Good: &goodsPB.Good{
-			Id: `db30257c-b26c-4abc-a35b-641677ef8693`,
+			Id: `a0da2378-1ba9-4285-9c74-b6eee9ede39d`,
 		},
 	}
 	res := &goodsPB.Response{}

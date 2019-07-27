@@ -26,7 +26,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// 数据库 Categorys
+// 数据库 categories
 type Category struct {
 	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Parent               int64    `protobuf:"varint,2,opt,name=parent,proto3" json:"parent,omitempty"`

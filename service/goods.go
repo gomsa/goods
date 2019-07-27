@@ -21,9 +21,49 @@ func (repo *Goods) List(req *pb.ListQuery) (departments []*pb.Good, err error) {
 
 // Get 获取商品信息
 func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
-	if err := repo.DB.Where(&good).Find(&good).Error; err != nil {
+	if err := repo.DB.Model(&good).Find(&good).Related(&good.Barcodes).Error; err != nil {
 		return good, err
 	}
+
+	Brand := &pb.Brand{}
+	if err := repo.DB.Model(&good).Related(Brand).Error; err != nil {
+		if err.Error() != "record not found" {
+			return good, err
+		}
+	}
+	Category := &pb.Category{}
+	if err := repo.DB.Model(&good).Related(Category).Error; err != nil {
+		if err.Error() != "record not found" {
+			return good, err
+		}
+	}
+
+	Firm := &pb.Firm{}
+	if err := repo.DB.Model(&good).Related(Firm).Error; err != nil {
+		if err.Error() != "record not found" {
+			return good, err
+		}
+	}
+
+	Unspsc := &pb.Unspsc{}
+	if err := repo.DB.Model(&good).Related(Unspsc).Error; err != nil {
+		if err.Error() != "record not found" {
+			return good, err
+		}
+	}
+
+	Taxcode := &pb.Taxcode{}
+	if err := repo.DB.Model(&good).Related(Taxcode).Error; err != nil {
+		if err.Error() != "record not found" {
+			return good, err
+		}
+	}
+
+	good.Brand = Brand
+	good.Category = Category
+	good.Firm = Firm
+	good.Unspsc = Unspsc
+	good.Taxcode = Taxcode
 	return good, nil
 }
 
