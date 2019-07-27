@@ -19,6 +19,11 @@ func (repo *Goods) List(req *pb.ListQuery) (departments []*pb.Good, err error) {
 	return nil, nil
 }
 
+// IsBarcode 获取商品信息
+func (repo *Goods) IsBarcode(good *pb.Good) (*pb.Good, error) {
+	return nil, nil
+}
+
 // Get 获取商品信息
 func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
 	if err := repo.DB.Model(&good).Find(&good).Related(&good.Barcodes).Error; err != nil {

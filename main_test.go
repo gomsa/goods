@@ -13,33 +13,33 @@ import (
 )
 
 func TestAddGoods(t *testing.T) {
-	// req := &goodsPB.Request{
-	// 	Good: &goodsPB.Good{
-	// 		Name:        `测试商品1`,
-	// 		EngName:     `goods`,
-	// 		Description: `描述1`,
-	// 		Cess:        0,
-	// 		Barcodes: []*goodsPB.Barcode{
-	// 			{
-	// 				Id:      61523402111,
-	// 				StockId: `asdas1s23123`,
-	// 				Price:   11000,
-	// 			},
-	// 			{
-	// 				Id:      61523402121,
-	// 				StockId: `asdas1s23123`,
-	// 				Price:   11000,
-	// 			},
-	// 		},
-	// 	},
-	// }
+	req := &goodsPB.Request{
+		Good: &goodsPB.Good{
+			Name:        `测试商品1`,
+			EngName:     `goods`,
+			Description: `描述1`,
+			Cess:        0,
+			Barcodes: []*goodsPB.Barcode{
+				{
+					Id:      61523402111,
+					StockId: `asdas1s23123`,
+					Price:   11000,
+				},
+				{
+					Id:      61523402121,
+					StockId: `asdas1s23123`,
+					Price:   11000,
+				},
+			},
+		},
+	}
 
-	// res := &goodsPB.Response{}
-	// repo := &service.Goods{db.DB}
-	// h := &hander.Goods{repo}
-	// err := h.Create(context.TODO(), req, res)
-	// // fmt.Println(err, res, req)
-	// t.Log(t, err)
+	res := &goodsPB.Response{}
+	repo := &service.Goods{db.DB}
+	h := &hander.Goods{repo}
+	err := h.Create(context.TODO(), req, res)
+	// fmt.Println(err, res, req)
+	t.Log(t, err)
 }
 
 func TestGetGoods(t *testing.T) {
