@@ -31,13 +31,14 @@ message Good {
     int64 cess = 12;                // 税率
     string created_at = 13;
     string updated_at = 14;
-    repeated Barcode Barcodes = 15; // 商品条形码详情
+    // repeated Barcode barcodes = 15; // 商品条形码详情
+    // Brand brand = 16;               // 关联品牌
 }
 
 // 数据库 barcodes
 message Barcode {
     int64 id = 1;               // 商品条码()
-    string goods_id = 2;        // 商品UUID
+    string good_id = 2;        // 商品UUID
     string stock_id = 3;        // 库存自动UUID(多条码可以使用一个库存[禁止不同价格使用同一库存UUID])
     int64 price = 4;            // 价格
     int64 width = 5;            // 宽(毫米)
@@ -52,16 +53,27 @@ message Barcode {
     string created_at = 14;
     string updated_at = 15;
 }
-// 商品信息 抽象对象不对应数据库(有用查询数据返回)
-message GoodsInfo {
-    Good good = 1;                      // 商品主信息
-    string brand = 3;                   // (json)品牌信息
-    string category = 4;                // (json)分类信息
-    string department = 5;              // (json)部门信息
-    string firm = 6;                    // (json)所属公司信息
-    string unspsc = 7;                  // (json)国际商品及服务编码
-    string taxcoe = 8;                  // (json)国家税收信息
+
+// 数据库 Brands
+message Brand {
+    int64 id = 1;               // 品牌ID
+    string name = 2;            // 品牌名称
+    string logo = 3;            // 品牌LOGO
+    string description = 4;     // 品牌描述
+    string created_at = 5;
+    string updated_at = 6;
 }
+
+// 商品信息 抽象对象不对应数据库(有用查询数据返回)
+// message GoodsInfo {
+//     Good good = 1;                      // 商品主信息
+//     string brand = 3;                   // (json)品牌信息
+//     string category = 4;                // (json)分类信息
+//     string department = 5;              // (json)部门信息
+//     string firm = 6;                    // (json)所属公司信息
+//     string unspsc = 7;                  // (json)国际商品及服务编码
+//     string taxcoe = 8;                  // (json)国家税收信息
+// }
 
 message ListQuery{
     int64 limit=1;          //返回数量
@@ -75,7 +87,7 @@ message Request {
 }
 
 message Response {
-    GoodsInfo goods_info = 1;           // 商品详细信息
-    repeated GoodsInfo goods_infos = 2; // 商品详细信息
+    Good good = 1;           // 商品详细信息
+    repeated Good goods = 2; // 商品详细信息
     bool valid = 3;                     // 操作状态返回
 }

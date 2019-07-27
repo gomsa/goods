@@ -26,8 +26,8 @@ func barcode() {
 	if !db.DB.HasTable(&barcode) {
 		db.DB.Exec(`
 			CREATE TABLE barcodes (
-			id int(36) NOT NULL COMMENT '商品条码',
-			goods_id varchar(36) DEFAULT NULL COMMENT '商品UUID',
+			id varchar(36) NOT NULL COMMENT '商品条码',
+			good_id varchar(36) DEFAULT NULL COMMENT '商品UUID',
 			stock_id varchar(36) DEFAULT NULL COMMENT '库存自动UUID(多条码可以使用一个库存[禁止不同价格使用同一库存UUID])',
 			price int(32) DEFAULT 0 COMMENT '价格',
 			width int(32) DEFAULT 0 COMMENT '宽(毫米)',

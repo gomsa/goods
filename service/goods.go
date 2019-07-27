@@ -1,7 +1,10 @@
 package service
 
 import (
+	"fmt"
+
 	pb "github.com/gomsa/goods/proto/goods"
+	"github.com/micro/go-micro/util/log"
 
 	"github.com/jinzhu/gorm"
 )
@@ -17,13 +20,22 @@ func (repo *Goods) List(req *pb.ListQuery) (departments []*pb.Good, err error) {
 }
 
 // Get 获取商品信息
-func (repo *Goods) Get(goods *pb.Good) (*pb.Good, error) {
-	return goods, nil
+func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
+	if err := repo.DB.Where(&good).Find(&good).Error; err != nil {
+		return good, err
+	}
+	return good, nil
 }
 
 // Create 创建商品
-func (repo *Goods) Create(goods *pb.Good) (*pb.Good, error) {
-	return goods, nil
+func (repo *Goods) Create(good *pb.Good) (*pb.Good, error) {
+	err := repo.DB.Create(good).Error
+	if err != nil {
+		// 写入数据库未知失败记录
+		log.Log(err)
+		return good, fmt.Errorf("添加商品失败")
+	}
+	return good, nil
 }
 
 // Update 更新商品

@@ -10,5 +10,6 @@ require (
 	github.com/micro/go-log v0.1.0
 	github.com/micro/go-micro v1.7.0
 	github.com/micro/kubernetes v0.7.0
+	github.com/satori/go.uuid v1.2.0
 	golang.org/x/net v0.0.0-20190628185345-da137c7871d7
 )
