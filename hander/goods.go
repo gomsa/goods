@@ -12,7 +12,25 @@ type Goods struct {
 	Repo service.GoodRepository
 }
 
-// IsBarcode // IsBarcode 查询条码是否存在
+// GoodsByBarcode 根据条形码查询商品
+func (srv *Goods) GoodsByBarcode(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 获取条形码商品 ID
+	barcode, err := srv.Repo.GetBarcode(req.Barcode)
+	if err != nil {
+		return err
+	}
+	// 通过商品 ID 查询商品信息
+	good, err := srv.Repo.Get(&pb.Good{
+		Id: barcode.GoodId,
+	})
+	if err != nil {
+		return err
+	}
+	res.Good = good
+	return err
+}
+
+// IsBarcode 查询条码是否存在
 func (srv *Goods) IsBarcode(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
 	balid, err := srv.Repo.IsBarcode(req.Good)
 	if err != nil {

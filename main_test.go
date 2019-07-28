@@ -96,6 +96,20 @@ func TestIsBarcodeGoods(t *testing.T) {
 	}
 	res := &goodsPB.Response{}
 	err := h.IsBarcode(context.TODO(), req, res)
+	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+func TestGoodsByBarcodeGoods(t *testing.T) {
+	repo := &service.Goods{db.DB}
+	h := &hander.Goods{repo}
+
+	req := &goodsPB.Request{
+		Barcode: &goodsPB.Barcode{
+			Id: `61523402121`,
+		},
+	}
+	res := &goodsPB.Response{}
+	err := h.GoodsByBarcode(context.TODO(), req, res)
 	fmt.Println(err, res)
 	t.Log(t, err)
 }

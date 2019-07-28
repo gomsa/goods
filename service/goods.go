@@ -15,6 +15,14 @@ type Goods struct {
 	DB *gorm.DB
 }
 
+// GetBarcode 获取条形码
+func (repo *Goods) GetBarcode(barcode *pb.Barcode) (*pb.Barcode, error) {
+	if err := repo.DB.Model(&barcode).Find(&barcode).Error; err != nil {
+		return barcode, err
+	}
+	return barcode, nil
+}
+
 // IsBarcode 查询条码是否存在
 func (repo *Goods) IsBarcode(good *pb.Good) (bool, error) {
 	var count int

@@ -3,6 +3,10 @@ syntax = "proto3";
 package goods;
 
 service Goods {
+    // 根据条形码查询商品
+    rpc GoodsByBarcode(Request) returns (Response) {}
+    // 查询条形码是否存在
+    rpc IsBarcode(Request) returns (Response) {}
     // 获取商品列表
     rpc List(Request) returns (Response) {}
     // 根据 唯一 获取商品信息 
@@ -128,6 +132,7 @@ message ListQuery{
 message Request {
     ListQuery list_query = 1;   // 列表分页请求
     Good good = 2;              // 商品主信息
+    Barcode barcode = 3;              // 商品主信息
 }
 
 message Response {
