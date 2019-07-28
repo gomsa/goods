@@ -14,13 +14,23 @@ type Goods struct {
 	DB *gorm.DB
 }
 
-// List 获取所有商品信息
-func (repo *Goods) List(req *pb.ListQuery) (departments []*pb.Good, err error) {
-	return nil, nil
+
+// IsBarcode 查询条码是否存在
+func (repo *Goods) IsBarcode(good *pb.Good) (bool, error) {
+	var count int
+	for _, barcode := range good.Barcodes {
+		if err := repo.DB.Model(&pb.Barcode{}).Where("id = ?", barcode.Id).Count(&count).Error; err != nil {
+			return false, err
+		}
+		if count > 0 {
+			return true
+		}
+	}
+	return false, nil
 }
 
-// IsBarcode 获取商品信息
-func (repo *Goods) IsBarcode(good *pb.Good) (*pb.Good, error) {
+// List 获取所有商品信息
+func (repo *Goods) List(req *pb.ListQuery) (goods []*pb.Good, err error) {
 	return nil, nil
 }
 
