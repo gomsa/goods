@@ -16,17 +16,17 @@ type Goods struct {
 }
 
 // IsBarcode 查询条码是否存在
-func (repo *Goods) IsBarcode(good *pb.Good) (bool, error) {
+func (repo *Goods) IsBarcode(good *pb.Good) (bool, string) {
 	var count int
 	for _, barcode := range good.Barcodes {
-		if err := repo.DB.Model(&pb.Barcode{}).Where("id = ?", barcode.Id).Count(&count).Error; err != nil {
-			return false, err
+		if err := repo.DB.Model(barcode).Where("id = ?", barcode.Id).Count(&count).Error; err != nil {
+			return false, ``
 		}
 		if count > 0 {
-			return true, nil
+			return true, barcode.Id
 		}
 	}
-	return false, nil
+	return false, ``
 }
 
 // List 获取所有商品信息
@@ -68,6 +68,9 @@ func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
 
 // Create 创建商品
 func (repo *Goods) Create(good *pb.Good) (*pb.Good, error) {
+	if exist, barcode := repo.IsBarcode(good); exist {
+		return good, fmt.Errorf("%s 条形码商品已存在", barcode)
+	}
 	err := repo.DB.Create(good).Error
 	if err != nil {
 		// 写入数据库未知失败记录

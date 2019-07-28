@@ -6,7 +6,7 @@ import (
 
 // GoodRepository  商品仓库接口
 type GoodRepository interface {
-	IsBarcode(*pb.Good) (bool, error)
+	IsBarcode(*pb.Good) (bool, string)
 	Create(*pb.Good) (*pb.Good, error)
 	Get(*pb.Good) (*pb.Good, error)
 	List(*pb.Request) ([]*pb.Good, error)

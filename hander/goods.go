@@ -2,7 +2,6 @@ package hander
 
 import (
 	"context"
-	"fmt"
 
 	pb "github.com/gomsa/goods/proto/goods"
 	"github.com/gomsa/goods/service"
@@ -38,7 +37,7 @@ func (srv *Goods) Create(ctx context.Context, req *pb.Request, res *pb.Response)
 	good, err := srv.Repo.Create(req.Good)
 	if err != nil {
 		res.Valid = false
-		return fmt.Errorf("创建用户失败")
+		return err
 	}
 	res.Good = good
 	res.Valid = true
