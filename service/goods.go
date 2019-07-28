@@ -2,11 +2,12 @@ package service
 
 import (
 	"fmt"
+	"github.com/micro/go-micro/util/log"
+	"github.com/jinzhu/gorm"
 
 	pb "github.com/gomsa/goods/proto/goods"
-	"github.com/micro/go-micro/util/log"
-
-	"github.com/jinzhu/gorm"
+	"github.com/gomsa/tools/uitl"
+	
 )
 
 // Goods 商品仓库失效
@@ -23,23 +24,45 @@ func (repo *Goods) IsBarcode(good *pb.Good) (bool, error) {
 			return false, err
 		}
 		if count > 0 {
-			return true
+			return true, nil
 		}
 	}
 	return false, nil
 }
 
 // List 获取所有商品信息
-func (repo *Goods) List(req *pb.ListQuery) (goods []*pb.Good, err error) {
-	return nil, nil
-}
-
-// Get 获取商品信息
-func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
-	if err := repo.DB.Model(&good).Find(&good).Related(&good.Barcodes).Error; err != nil {
-		return good, err
+func (repo *Goods) List(req *pb.Request) (goods []*pb.Good, err error) {
+	db := repo.DB
+	// 计算分页
+	limit, offset := uitl.Page(req.ListQuery.Limit,req.ListQuery.Page)
+	// 排序
+	var sort string
+	if req.ListQuery.Sort != "" {
+		sort = req.ListQuery.Sort
+	} else {
+		sort = "created_at desc"
 	}
-
+	// 查询条件
+	if req.Good.Name != "" {
+		db = db.Where("name like ?", "%"+req.Good.Name+"%")
+	}
+	if err := db.Order(sort).Limit(limit).Offset(offset).Find(&goods).Error; err != nil {
+		log.Log(err)
+		return goods, err
+	}
+	// 查询关联
+	for _, good := range goods {
+		repo.Related(good)
+	}
+	return goods, err
+}
+// Related 关联处理
+func (repo *Goods) Related(good *pb.Good) (*pb.Good, error) {
+	if err := repo.DB.Model(&good).Related(&good.Barcodes).Error; err != nil {
+		if err.Error() != "record not found" {
+			return good, err
+		}
+	}
 	Brand := &pb.Brand{}
 	if err := repo.DB.Model(&good).Related(Brand).Error; err != nil {
 		if err.Error() != "record not found" {
@@ -79,6 +102,16 @@ func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
 	good.Firm = Firm
 	good.Unspsc = Unspsc
 	good.Taxcode = Taxcode
+	return good, nil
+} 
+
+// Get 获取商品信息
+func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
+	if err := repo.DB.Model(&good).Find(&good).Error; err != nil {
+		return good, err
+	}
+	// 查询关联
+	repo.Related(good)
 	return good, nil
 }
 
