@@ -133,5 +133,5 @@ message Request {
 message Response {
     Good good = 1;           // 商品详细信息
     repeated Good goods = 2; // 商品详细信息
-    bool valid = 3;                     // 操作状态返回
+    bool valid = 3;          // 操作状态返回
 }

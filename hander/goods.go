@@ -12,6 +12,17 @@ type Goods struct {
 	Repo service.GoodRepository
 }
 
+// IsBarcode // IsBarcode 查询条码是否存在
+func (srv *Goods) IsBarcode(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	balid, err := srv.Repo.IsBarcode(req.Good)
+	if err != nil {
+		res.Valid = balid
+		return err
+	}
+	res.Valid = balid
+	return err
+}
+
 // List 获取所有商品
 func (srv *Goods) List(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
 	goods, err := srv.Repo.List(req)

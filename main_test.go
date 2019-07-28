@@ -38,8 +38,8 @@ func TestAddGoods(t *testing.T) {
 	repo := &service.Goods{db.DB}
 	h := &hander.Goods{repo}
 	err := h.Create(context.TODO(), req, res)
-	fmt.Println(err, res, req)
-	t.Log(t)
+	// fmt.Println(err, res, req)
+	t.Log(t, err)
 }
 
 func TestGetGoods(t *testing.T) {
@@ -75,5 +75,27 @@ func TestListGoods(t *testing.T) {
 	res := &goodsPB.Response{}
 	err := h.List(context.TODO(), req, res)
 	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestIsBarcodeGoods(t *testing.T) {
+	repo := &service.Goods{db.DB}
+	h := &hander.Goods{repo}
+
+	req := &goodsPB.Request{
+		Good: &goodsPB.Good{
+			Barcodes: []*goodsPB.Barcode{
+				{
+					Id: `615234021202`,
+				},
+				{
+					Id: `61523402101`,
+				},
+			},
+		},
+	}
+	res := &goodsPB.Response{}
+	err := h.IsBarcode(context.TODO(), req, res)
+	fmt.Println(err, res)
 	t.Log(t, err)
 }
