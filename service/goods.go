@@ -2,19 +2,18 @@ package service
 
 import (
 	"fmt"
-	"github.com/micro/go-micro/util/log"
+
 	"github.com/jinzhu/gorm"
+	"github.com/micro/go-micro/util/log"
 
 	pb "github.com/gomsa/goods/proto/goods"
 	"github.com/gomsa/tools/uitl"
-	
 )
 
 // Goods 商品仓库失效
 type Goods struct {
 	DB *gorm.DB
 }
-
 
 // IsBarcode 查询条码是否存在
 func (repo *Goods) IsBarcode(good *pb.Good) (bool, error) {
@@ -32,9 +31,9 @@ func (repo *Goods) IsBarcode(good *pb.Good) (bool, error) {
 
 // List 获取所有商品信息
 func (repo *Goods) List(req *pb.Request) (goods []*pb.Good, err error) {
-	db := repo.DB
+	db := repo.DB.Model(&req.Good)
 	// 计算分页
-	limit, offset := uitl.Page(req.ListQuery.Limit,req.ListQuery.Page)
+	limit, offset := uitl.Page(req.ListQuery.Limit, req.ListQuery.Page)
 	// 排序
 	var sort string
 	if req.ListQuery.Sort != "" {
@@ -56,6 +55,38 @@ func (repo *Goods) List(req *pb.Request) (goods []*pb.Good, err error) {
 	}
 	return goods, err
 }
+
+// Get 获取商品信息
+func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
+	if err := repo.DB.Model(&good).Find(&good).Error; err != nil {
+		return good, err
+	}
+	// 查询关联
+	repo.Related(good)
+	return good, nil
+}
+
+// Create 创建商品
+func (repo *Goods) Create(good *pb.Good) (*pb.Good, error) {
+	err := repo.DB.Create(good).Error
+	if err != nil {
+		// 写入数据库未知失败记录
+		log.Log(err)
+		return good, fmt.Errorf("添加商品失败")
+	}
+	return good, nil
+}
+
+// Update 更新商品
+func (repo *Goods) Update(goods *pb.Good) (bool, error) {
+	return true, nil
+}
+
+// Delete 删除商品
+func (repo *Goods) Delete(goods *pb.Good) (bool, error) {
+	return true, nil
+}
+
 // Related 关联处理
 func (repo *Goods) Related(good *pb.Good) (*pb.Good, error) {
 	if err := repo.DB.Model(&good).Related(&good.Barcodes).Error; err != nil {
@@ -103,35 +134,4 @@ func (repo *Goods) Related(good *pb.Good) (*pb.Good, error) {
 	good.Unspsc = Unspsc
 	good.Taxcode = Taxcode
 	return good, nil
-} 
-
-// Get 获取商品信息
-func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
-	if err := repo.DB.Model(&good).Find(&good).Error; err != nil {
-		return good, err
-	}
-	// 查询关联
-	repo.Related(good)
-	return good, nil
-}
-
-// Create 创建商品
-func (repo *Goods) Create(good *pb.Good) (*pb.Good, error) {
-	err := repo.DB.Create(good).Error
-	if err != nil {
-		// 写入数据库未知失败记录
-		log.Log(err)
-		return good, fmt.Errorf("添加商品失败")
-	}
-	return good, nil
-}
-
-// Update 更新商品
-func (repo *Goods) Update(goods *pb.Good) (bool, error) {
-	return true, nil
-}
-
-// Delete 删除商品
-func (repo *Goods) Delete(goods *pb.Good) (bool, error) {
-	return true, nil
 }

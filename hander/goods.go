@@ -15,6 +15,11 @@ type Goods struct {
 
 // List 获取所有商品
 func (srv *Goods) List(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	goods, err := srv.Repo.List(req)
+	if err != nil {
+		return err
+	}
+	res.Goods = goods
 	return err
 }
 
