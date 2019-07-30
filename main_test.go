@@ -15,18 +15,18 @@ import (
 func TestAddGoods(t *testing.T) {
 	req := &goodsPB.Request{
 		Good: &goodsPB.Good{
-			Name:        `测试商品1`,
+			Name:        `测试商品2`,
 			EngName:     `goods`,
 			Description: `描述1`,
 			Cess:        0,
 			Barcodes: []*goodsPB.Barcode{
 				{
-					Id:      `61523402101`,
+					Id:      `6152340210121`,
 					StockId: `asdas1s23123`,
 					Price:   11000,
 				},
 				{
-					Id:      `615234021202`,
+					Id:      `61523402120231`,
 					StockId: `asdas1s23123`,
 					Price:   11000,
 				},
@@ -112,4 +112,60 @@ func TestGoodsByBarcodeGoods(t *testing.T) {
 	err := h.GoodsByBarcode(context.TODO(), req, res)
 	fmt.Println(err, res)
 	t.Log(t, err)
+}
+
+func TestUpdateGoods(t *testing.T) {
+	req := &goodsPB.Request{
+		Good: &goodsPB.Good{
+			Id:          `9cf86abf-ad72-45e2-ab84-248eb70daf59`,
+			Name:        `测试商品3`,
+			EngName:     `goods`,
+			Description: `描述1`,
+			Cess:        0,
+			Barcodes: []*goodsPB.Barcode{
+				{
+					Id:      `61523402104`,
+					StockId: `asdas1s23123`,
+					Price:   14000,
+				},
+				{
+					Id:      `615234021202`,
+					StockId: `asdas1s23123`,
+					Price:   12000,
+				},
+			},
+		},
+	}
+
+	res := &goodsPB.Response{}
+	repo := &service.Goods{db.DB}
+	h := &hander.Goods{repo}
+	err := h.Update(context.TODO(), req, res)
+	// fmt.Println(err, res)
+
+	// 删除商品条码 需要前端单独调用
+	reqb := &goodsPB.Request{
+		Barcode: &goodsPB.Barcode{
+			Id: `61523402101`,
+		},
+	}
+	resb := &goodsPB.Response{}
+	err = h.DeleteBarcode(context.TODO(), reqb, resb)
+	// fmt.Println(err, resb)
+	t.Log(t, err)
+
+}
+
+func TestDeleteGoods(t *testing.T) {
+	req := &goodsPB.Request{
+		Good: &goodsPB.Good{
+			Id: `8668dbe3-4dc0-4ded-96f3-9e0f9522280a`,
+		},
+	}
+
+	res := &goodsPB.Response{}
+	repo := &service.Goods{db.DB}
+	h := &hander.Goods{repo}
+	err := h.Delete(context.TODO(), req, res)
+	fmt.Println(err, res)
 }

@@ -3,6 +3,8 @@ syntax = "proto3";
 package brand;
 
 service Brands {
+    // 全部品牌
+    rpc All(Request) returns (Response) {}
     // 获取品牌列表
     rpc List(Request) returns (Response) {}
     // 根据 唯一 获取品牌信息 

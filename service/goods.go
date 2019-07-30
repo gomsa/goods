@@ -37,6 +37,45 @@ func (repo *Goods) IsBarcode(good *pb.Good) (bool, error) {
 	return false, nil
 }
 
+// DeleteBarcode 删除条码
+func (repo *Goods) DeleteBarcode(barcode *pb.Barcode) (bool, error) {
+	if barcode.Id == "" {
+		return false, fmt.Errorf("请传入操作id")
+	}
+	id := &pb.Good{
+		Id: barcode.Id,
+	}
+	if err := repo.DB.Delete(id).Error; err != nil {
+		log.Log(err)
+		return false, err
+	}
+	return true, nil
+}
+
+// DeleteBarcodeByGoodID 根据商品ID删除条码
+func (repo *Goods) DeleteBarcodeByGoodID(barcode *pb.Barcode) (bool, error) {
+	if barcode.GoodId == "" {
+		return false, fmt.Errorf("请传入操作id")
+	}
+	if err := repo.DB.Where("good_id = ?", barcode.GoodId).Delete(&pb.Barcode{}).Error; err != nil {
+		log.Log(err)
+		return false, err
+	}
+	return true, nil
+}
+
+// IsGood 查询商品是否存在
+func (repo *Goods) IsGood(good *pb.Good) (bool, error) {
+	var count int
+	if err := repo.DB.Model(good).Where("id = ?", good.Id).Count(&count).Error; err != nil {
+		return false, err
+	}
+	if count > 0 {
+		return true, fmt.Errorf("%s 商品已存在", good.Id)
+	}
+	return false, nil
+}
+
 // List 获取所有商品信息
 func (repo *Goods) List(req *pb.Request) (goods []*pb.Good, err error) {
 	db := repo.DB.Model(&req.Good)
@@ -89,12 +128,37 @@ func (repo *Goods) Create(good *pb.Good) (*pb.Good, error) {
 }
 
 // Update 更新商品
-func (repo *Goods) Update(goods *pb.Good) (bool, error) {
+func (repo *Goods) Update(good *pb.Good) (bool, error) {
+	if good.Id == "" {
+		return false, fmt.Errorf("请传入操作id")
+	}
+	if valid, _ := repo.IsGood(good); valid {
+		id := &pb.Good{
+			Id: good.Id,
+		}
+		err := repo.DB.Model(id).Updates(good).Error
+		if err != nil {
+			log.Log(err)
+			return false, err
+		}
+	} else {
+		return false, fmt.Errorf("更新商品不存在")
+	}
 	return true, nil
 }
 
 // Delete 删除商品
-func (repo *Goods) Delete(goods *pb.Good) (bool, error) {
+func (repo *Goods) Delete(good *pb.Good) (bool, error) {
+	if good.Id == "" {
+		return false, fmt.Errorf("请传入操作id")
+	}
+	id := &pb.Good{
+		Id: good.Id,
+	}
+	if err := repo.DB.Delete(id).Error; err != nil {
+		log.Log(err)
+		return false, err
+	}
 	return true, nil
 }
 

@@ -32,12 +32,23 @@ func (srv *Goods) GoodsByBarcode(ctx context.Context, req *pb.Request, res *pb.R
 
 // IsBarcode 查询条码是否存在
 func (srv *Goods) IsBarcode(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
-	balid, err := srv.Repo.IsBarcode(req.Good)
+	valid, err := srv.Repo.IsBarcode(req.Good)
 	if err != nil {
-		res.Valid = balid
+		res.Valid = false
 		return err
 	}
-	res.Valid = balid
+	res.Valid = valid
+	return err
+}
+
+// DeleteBarcode 删除条码
+func (srv *Goods) DeleteBarcode(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	valid, err := srv.Repo.DeleteBarcode(req.Barcode)
+	if err != nil {
+		res.Valid = false
+		return err
+	}
+	res.Valid = valid
 	return err
 }
 
@@ -75,10 +86,27 @@ func (srv *Goods) Create(ctx context.Context, req *pb.Request, res *pb.Response)
 
 // Update 更新商品
 func (srv *Goods) Update(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	valid, err := srv.Repo.Update(req.Good)
+	if err != nil {
+		res.Valid = false
+		return err
+	}
+	res.Valid = valid
 	return err
 }
 
 // Delete 删除商品商品
 func (srv *Goods) Delete(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	valid, err := srv.Repo.Delete(req.Good)
+	if err != nil {
+		res.Valid = false
+		return err
+	}
+	if valid {
+		srv.Repo.DeleteBarcodeByGoodID(&pb.Barcode{
+			GoodId: req.Good.Id,
+		})
+	}
+	res.Valid = valid
 	return err
 }

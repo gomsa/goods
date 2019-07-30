@@ -3,6 +3,8 @@ syntax = "proto3";
 package taxcode;
 
 service Taxcodes {
+    // 全部国家税收分类编码
+    rpc All(Request) returns (Response) {}
     // 获取国家税收分类编码列表
     rpc List(Request) returns (Response) {}
     // 根据 唯一 获取国家税收分类编码信息 

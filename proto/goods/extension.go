@@ -30,12 +30,30 @@ func (p *Good) BeforeCreate(scope *gorm.Scope) (err error) {
 	return nil
 }
 
+// BeforeUpdate 更新前数据处理
+func (p *Good) BeforeUpdate(scope *gorm.Scope) (err error) {
+	err = scope.SetColumn("UpdatedAt", dateTime)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // BeforeCreate 插入前数据处理
 func (p *Barcode) BeforeCreate(scope *gorm.Scope) (err error) {
 	err = scope.SetColumn("CreatedAt", dateTime)
 	if err != nil {
 		return err
 	}
+	err = scope.SetColumn("UpdatedAt", dateTime)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// BeforeUpdate 更新前数据处理
+func (p *Barcode) BeforeUpdate(scope *gorm.Scope) (err error) {
 	err = scope.SetColumn("UpdatedAt", dateTime)
 	if err != nil {
 		return err
