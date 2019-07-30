@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"testing"
 
+	brandPB "github.com/gomsa/goods/proto/brand"
 	goodsPB "github.com/gomsa/goods/proto/goods"
 
 	"github.com/gomsa/goods/hander"
@@ -167,5 +168,21 @@ func TestDeleteGoods(t *testing.T) {
 	repo := &service.Goods{db.DB}
 	h := &hander.Goods{repo}
 	err := h.Delete(context.TODO(), req, res)
+	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestAddBrand(t *testing.T) {
+	req := &brandPB.Request{
+		Brand: &brandPB.Brand{
+			Name: `伊利`,
+		},
+	}
+
+	res := &brandPB.Response{}
+	repo := &service.Brand{db.DB}
+	h := &hander.Brand{repo}
+	err := h.Create(context.TODO(), req, res)
 	fmt.Println(err, res)
+	t.Log(t, err)
 }
