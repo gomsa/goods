@@ -3,6 +3,7 @@ package migrations
 import (
 	brandPB "github.com/gomsa/goods/proto/brand"
 	categoryPB "github.com/gomsa/goods/proto/category"
+	departmentPB "github.com/gomsa/goods/proto/department"
 	firmPB "github.com/gomsa/goods/proto/firm"
 	goodsPB "github.com/gomsa/goods/proto/goods"
 	taxcodePB "github.com/gomsa/goods/proto/taxcode"
@@ -15,6 +16,7 @@ func init() {
 	goods()
 	brand()
 	category()
+	department()
 	firm()
 	unspsc()
 	taxcode()
@@ -106,6 +108,25 @@ func category() {
 			id int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
 			parent int(11) DEFAULT 0 COMMENT '上级分类ID',
 			name varchar(36) DEFAULT NULL COMMENT '分类名称',
+			created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			xxx_unrecognized varbinary(255) DEFAULT NULL,
+			xxx_sizecache int(11) DEFAULT NULL,
+			PRIMARY KEY (id)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		`)
+	}
+}
+
+// department 商品分类数据迁移
+func department() {
+	department := &departmentPB.Department{}
+	if !db.DB.HasTable(&department) {
+		db.DB.Exec(`
+			CREATE TABLE departments (
+			id int(11) unsigned NOT NULL AUTO_INCREMENT  COMMENT '部门ID',
+			parent int(11) DEFAULT NULL  COMMENT '上级部门ID',
+			name varchar(64) DEFAULT NULL  COMMENT '部门名称',
 			created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			xxx_unrecognized varbinary(255) DEFAULT NULL,
