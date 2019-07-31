@@ -80,7 +80,7 @@ func TestListGoods(t *testing.T) {
 	t.Log(t, err)
 }
 
-func TestIsBarcodeGoods(t *testing.T) {
+func TestExistGoods(t *testing.T) {
 	repo := &service.Goods{db.DB}
 	h := &hander.Goods{repo}
 
@@ -97,7 +97,7 @@ func TestIsBarcodeGoods(t *testing.T) {
 		},
 	}
 	res := &goodsPB.Response{}
-	err := h.IsBarcode(context.TODO(), req, res)
+	err := h.Exist(context.TODO(), req, res)
 	// fmt.Println(err, res)
 	t.Log(t, err)
 }

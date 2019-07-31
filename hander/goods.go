@@ -30,9 +30,9 @@ func (srv *Goods) GoodsByBarcode(ctx context.Context, req *pb.Request, res *pb.R
 	return err
 }
 
-// IsBarcode 查询条码是否存在
-func (srv *Goods) IsBarcode(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
-	valid, err := srv.Repo.IsBarcode(req.Good)
+// Exist 查询条码是否存在
+func (srv *Goods) Exist(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	valid, err := srv.Repo.Exist(req.Good)
 	if err != nil {
 		res.Valid = false
 		return err

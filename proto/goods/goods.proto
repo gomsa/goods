@@ -6,7 +6,7 @@ service Goods {
     // 根据条形码查询商品
     rpc GoodsByBarcode(Request) returns (Response) {}
     // 查询条形码是否存在
-    rpc IsBarcode(Request) returns (Response) {}
+    rpc Exist(Request) returns (Response) {}
     // 删除商品条码
     rpc DeleteBarcode(Request) returns (Response) {}
     // 获取商品列表

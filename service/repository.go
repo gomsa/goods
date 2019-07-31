@@ -13,7 +13,7 @@ import (
 // GoodRepository  商品仓库接口
 type GoodRepository interface {
 	GetBarcode(*goodsPB.Barcode) (*goodsPB.Barcode, error)
-	IsBarcode(*goodsPB.Good) (bool, error)
+	Exist(*goodsPB.Good) (bool, error)
 	DeleteBarcode(*goodsPB.Barcode) (bool, error)
 	DeleteBarcodeByGoodID(*goodsPB.Barcode) (bool, error)
 	IsGood(*goodsPB.Good) (bool, error)

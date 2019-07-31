@@ -23,8 +23,8 @@ func (repo *Goods) GetBarcode(barcode *pb.Barcode) (*pb.Barcode, error) {
 	return barcode, nil
 }
 
-// IsBarcode 查询条码是否存在
-func (repo *Goods) IsBarcode(good *pb.Good) (bool, error) {
+// Exist 查询条码是否存在
+func (repo *Goods) Exist(good *pb.Good) (bool, error) {
 	var count int
 	for _, barcode := range good.Barcodes {
 		if err := repo.DB.Model(barcode).Where("id = ?", barcode.Id).Count(&count).Error; err != nil {
@@ -115,7 +115,7 @@ func (repo *Goods) Get(good *pb.Good) (*pb.Good, error) {
 
 // Create 创建商品
 func (repo *Goods) Create(good *pb.Good) (*pb.Good, error) {
-	if exist, message := repo.IsBarcode(good); exist {
+	if exist, message := repo.Exist(good); exist {
 		return good, message
 	}
 	err := repo.DB.Create(good).Error
