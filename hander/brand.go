@@ -34,7 +34,7 @@ func (srv *Brand) All(ctx context.Context, req *pb.Request, res *pb.Response) (e
 
 // List 获取所有商品
 func (srv *Brand) List(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
-	brands, err := srv.Repo.List(req)
+	brands, err := srv.Repo.List(req.ListQuery, req.Brand)
 	if err != nil {
 		return err
 	}

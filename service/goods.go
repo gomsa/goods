@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/micro/go-micro/util/log"
 
+	goodsPB "github.com/gomsa/goods/proto/goods"
 	pb "github.com/gomsa/goods/proto/goods"
 	"github.com/gomsa/tools/uitl"
 )
@@ -77,20 +78,20 @@ func (repo *Goods) IsGood(good *pb.Good) (bool, error) {
 }
 
 // List 获取所有商品信息
-func (repo *Goods) List(req *pb.Request) (goods []*pb.Good, err error) {
-	db := repo.DB.Model(&req.Good)
+func (repo *Goods) List(listQuery *goodsPB.ListQuery, good *goodsPB.Good) (goods []*pb.Good, err error) {
+	db := repo.DB.Model(&good)
 	// 计算分页
-	limit, offset := uitl.Page(req.ListQuery.Limit, req.ListQuery.Page)
+	limit, offset := uitl.Page(listQuery.Limit, listQuery.Page)
 	// 排序
 	var sort string
-	if req.ListQuery.Sort != "" {
-		sort = req.ListQuery.Sort
+	if listQuery.Sort != "" {
+		sort = listQuery.Sort
 	} else {
 		sort = "created_at desc"
 	}
 	// 查询条件
-	if req.Good.Name != "" {
-		db = db.Where("name like ?", "%"+req.Good.Name+"%")
+	if good.Name != "" {
+		db = db.Where("name like ?", "%"+good.Name+"%")
 	}
 	if err := db.Order(sort).Limit(limit).Offset(offset).Find(&goods).Error; err != nil {
 		log.Log(err)

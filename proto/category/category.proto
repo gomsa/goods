@@ -26,15 +26,8 @@ message Category {
     string updated_at = 5;
 }
 
-message ListQuery{
-    int64 limit=1;          //返回数量
-    int64 page=2;           //页面
-    string sort=3;          //排序
-}
-
 message Request {
-    ListQuery list_query = 1;   // 列表分页请求
-    Category Category = 2;        // 分类主信息
+    Category Category = 1;        // 分类主信息
 }
 
 message Response {

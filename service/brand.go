@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/micro/go-micro/util/log"
 
+	brandPB "github.com/gomsa/goods/proto/brand"
 	pb "github.com/gomsa/goods/proto/brand"
 	"github.com/gomsa/tools/uitl"
 )
@@ -43,20 +44,20 @@ func (repo *Brand) All(req *pb.Brand) (brands []*pb.Brand, err error) {
 }
 
 // List 获取所有品牌信息
-func (repo *Brand) List(req *pb.Request) (brands []*pb.Brand, err error) {
-	db := repo.DB.Model(&req.Brand)
+func (repo *Brand) List(listQuery *brandPB.ListQuery, brand *brandPB.Brand) (brands []*pb.Brand, err error) {
+	db := repo.DB.Model(&brand)
 	// 计算分页
-	limit, offset := uitl.Page(req.ListQuery.Limit, req.ListQuery.Page)
+	limit, offset := uitl.Page(listQuery.Limit, listQuery.Page)
 	// 排序
 	var sort string
-	if req.ListQuery.Sort != "" {
-		sort = req.ListQuery.Sort
+	if listQuery.Sort != "" {
+		sort = listQuery.Sort
 	} else {
 		sort = "created_at desc"
 	}
 	// 查询条件
-	if req.Brand.Name != "" {
-		db = db.Where("name like ?", "%"+req.Brand.Name+"%")
+	if brand.Name != "" {
+		db = db.Where("name like ?", "%"+brand.Name+"%")
 	}
 	if err := db.Order(sort).Limit(limit).Offset(offset).Find(&brands).Error; err != nil {
 		log.Log(err)

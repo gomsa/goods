@@ -2,6 +2,7 @@ package service
 
 import (
 	brandPB "github.com/gomsa/goods/proto/brand"
+	categoryPB "github.com/gomsa/goods/proto/category"
 	goodsPB "github.com/gomsa/goods/proto/goods"
 )
 
@@ -14,7 +15,7 @@ type GoodRepository interface {
 	IsGood(*goodsPB.Good) (bool, error)
 	Create(*goodsPB.Good) (*goodsPB.Good, error)
 	Get(*goodsPB.Good) (*goodsPB.Good, error)
-	List(*goodsPB.Request) ([]*goodsPB.Good, error)
+	List(*goodsPB.ListQuery, *goodsPB.Good) ([]*goodsPB.Good, error)
 	Update(*goodsPB.Good) (bool, error)
 	Delete(*goodsPB.Good) (bool, error)
 }
@@ -23,9 +24,19 @@ type GoodRepository interface {
 type BrandRepository interface {
 	Exist(*brandPB.Brand) (bool, error)
 	All(*brandPB.Brand) ([]*brandPB.Brand, error)
-	List(*brandPB.Request) ([]*brandPB.Brand, error)
+	List(*brandPB.ListQuery, *brandPB.Brand) ([]*brandPB.Brand, error)
 	Create(*brandPB.Brand) (*brandPB.Brand, error)
 	Update(*brandPB.Brand) (bool, error)
 	Delete(*brandPB.Brand) (bool, error)
 	Get(*brandPB.Brand) (*brandPB.Brand, error)
+}
+
+// CategoryRepository  分类接口
+type CategoryRepository interface {
+	All(*categoryPB.Category) ([]*categoryPB.Category, error)
+	List(*categoryPB.Category) ([]*categoryPB.Category, error)
+	Create(*categoryPB.Category) (*categoryPB.Category, error)
+	Update(*categoryPB.Category) (bool, error)
+	Delete(*categoryPB.Category) (bool, error)
+	Get(*categoryPB.Category) (*categoryPB.Category, error)
 }

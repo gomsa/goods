@@ -54,7 +54,7 @@ func (srv *Goods) DeleteBarcode(ctx context.Context, req *pb.Request, res *pb.Re
 
 // List 获取所有商品
 func (srv *Goods) List(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
-	goods, err := srv.Repo.List(req)
+	goods, err := srv.Repo.List(req.ListQuery, req.Good)
 	if err != nil {
 		return err
 	}

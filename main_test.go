@@ -183,6 +183,50 @@ func TestAddBrand(t *testing.T) {
 	repo := &service.Brand{db.DB}
 	h := &hander.Brand{repo}
 	err := h.Create(context.TODO(), req, res)
-	fmt.Println(err, res)
+	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestGetBrand(t *testing.T) {
+	req := &brandPB.Request{
+		Brand: &brandPB.Brand{
+			Id: 2,
+		},
+	}
+
+	res := &brandPB.Response{}
+	repo := &service.Brand{db.DB}
+	h := &hander.Brand{repo}
+	err := h.Get(context.TODO(), req, res)
+	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestUpdateBrand(t *testing.T) {
+	req := &brandPB.Request{
+		Brand: &brandPB.Brand{
+			Id:   2,
+			Name: `伊丽莎白`,
+		},
+	}
+	res := &brandPB.Response{}
+	repo := &service.Brand{db.DB}
+	h := &hander.Brand{repo}
+	err := h.Update(context.TODO(), req, res)
+	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestDeleteBrand(t *testing.T) {
+	req := &brandPB.Request{
+		Brand: &brandPB.Brand{
+			Id: 2,
+		},
+	}
+	res := &brandPB.Response{}
+	repo := &service.Brand{db.DB}
+	h := &hander.Brand{repo}
+	err := h.Delete(context.TODO(), req, res)
+	// fmt.Println(err, res)
 	t.Log(t, err)
 }
