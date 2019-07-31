@@ -26,14 +26,7 @@ message Unspsc {
     string updated_at = 5;
 }
 
-message ListQuery{
-    int64 limit=1;          //返回数量
-    int64 page=2;           //页面
-    string sort=3;          //排序
-}
-
 message Request {
-    ListQuery list_query = 1;   // 列表分页请求
     Unspsc Unspsc = 2;          // 国际商品及服务编码编码主信息
 }
 

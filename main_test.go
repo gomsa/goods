@@ -233,18 +233,18 @@ func TestDeleteBrand(t *testing.T) {
 }
 
 func TestAddCategory(t *testing.T) {
-	// req := &categoryPB.Request{
-	// 	Category: &categoryPB.Category{
-	// 		Name:   `洗化-1`,
-	// 		Parent: 2,
-	// 	},
-	// }
+	req := &categoryPB.Request{
+		Category: &categoryPB.Category{
+			Name:   `洗化-1`,
+			Parent: 2,
+		},
+	}
 
-	// res := &categoryPB.Response{}
-	// h := &hander.Category{&service.Category{db.DB}}
-	// err := h.Create(context.TODO(), req, res)
+	res := &categoryPB.Response{}
+	h := &hander.Category{&service.Category{db.DB}}
+	err := h.Create(context.TODO(), req, res)
 	// fmt.Println(err, res)
-	// t.Log(t, err)
+	t.Log(t, err)
 }
 func TestAllCategory(t *testing.T) {
 	req := &categoryPB.Request{
@@ -289,16 +289,16 @@ func TestGetCategory(t *testing.T) {
 func TestUpdateCategory(t *testing.T) {
 	req := &categoryPB.Request{
 		Category: &categoryPB.Category{
-			Id:   4,
+			Id:   1,
 			Name: `牙膏`,
 		},
 	}
 
 	res := &categoryPB.Response{}
 	h := &hander.Category{&service.Category{db.DB}}
-	err := h.Update(context.TODO(), req, res)
+	// err := h.Update(context.TODO(), req, res)
 	// fmt.Println(err, res)
-	t.Log(t, err)
+	t.Log(t, h, res, req)
 }
 
 func TestDeleteCategory(t *testing.T) {

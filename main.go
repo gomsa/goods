@@ -16,7 +16,9 @@ import (
 	brandPB "github.com/gomsa/goods/proto/brand"
 	categoryPB "github.com/gomsa/goods/proto/category"
 	departmentPB "github.com/gomsa/goods/proto/department"
+	firmPB "github.com/gomsa/goods/proto/firm"
 	goodsPB "github.com/gomsa/goods/proto/goods"
+	unspscPB "github.com/gomsa/goods/proto/unspsc"
 )
 
 func main() {
@@ -29,8 +31,10 @@ func main() {
 	// 权限服务实现
 	goodsPB.RegisterGoodsHandler(srv.Server(), &hander.Goods{&service.Goods{db.DB}})
 	brandPB.RegisterBrandsHandler(srv.Server(), &hander.Brand{&service.Brand{db.DB}})
+	firmPB.RegisterFirmsHandler(srv.Server(), &hander.Firm{&service.Firm{db.DB}})
 	categoryPB.RegisterCategorysHandler(srv.Server(), &hander.Category{&service.Category{db.DB}})
 	departmentPB.RegisterDepartmentsHandler(srv.Server(), &hander.Department{&service.Department{db.DB}})
+	unspscPB.RegisterUnspscsHandler(srv.Server(), &hander.Unspsc{&service.Unspsc{db.DB}})
 
 	// Run the server
 	if err := srv.Run(); err != nil {
