@@ -7,12 +7,12 @@ import (
 	"github.com/gomsa/goods/service"
 )
 
-// Category 商品结构
+// Category 分类结构
 type Category struct {
 	Repo service.CategoryRepository
 }
 
-// All 获取所有商品
+// All 获取所有分类
 func (srv *Category) All(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
 	categorys, err := srv.Repo.All(req.Category)
 	if err != nil {
@@ -22,7 +22,7 @@ func (srv *Category) All(ctx context.Context, req *pb.Request, res *pb.Response)
 	return err
 }
 
-// List 获取所有商品
+// List 获取所有分类
 func (srv *Category) List(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
 	categorys, err := srv.Repo.List(req.Category)
 	if err != nil {
@@ -32,7 +32,7 @@ func (srv *Category) List(ctx context.Context, req *pb.Request, res *pb.Response
 	return err
 }
 
-// Get 获取商品
+// Get 获取分类
 func (srv *Category) Get(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
 	category, err := srv.Repo.Get(req.Category)
 	if err != nil {
@@ -42,7 +42,7 @@ func (srv *Category) Get(ctx context.Context, req *pb.Request, res *pb.Response)
 	return err
 }
 
-// Create 创建商品
+// Create 创建分类
 func (srv *Category) Create(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
 	category, err := srv.Repo.Create(req.Category)
 	if err != nil {
@@ -54,7 +54,7 @@ func (srv *Category) Create(ctx context.Context, req *pb.Request, res *pb.Respon
 	return err
 }
 
-// Update 更新商品
+// Update 更新分类
 func (srv *Category) Update(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
 	valid, err := srv.Repo.Update(req.Category)
 	if err != nil {
@@ -65,7 +65,7 @@ func (srv *Category) Update(ctx context.Context, req *pb.Request, res *pb.Respon
 	return err
 }
 
-// Delete 删除商品商品
+// Delete 删除分类分类
 func (srv *Category) Delete(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
 	valid, err := srv.Repo.Delete(req.Category)
 	if err != nil {

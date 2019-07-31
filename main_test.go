@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	brandPB "github.com/gomsa/goods/proto/brand"
+	categoryPB "github.com/gomsa/goods/proto/category"
 	goodsPB "github.com/gomsa/goods/proto/goods"
 
 	"github.com/gomsa/goods/hander"
@@ -228,5 +229,88 @@ func TestDeleteBrand(t *testing.T) {
 	h := &hander.Brand{repo}
 	err := h.Delete(context.TODO(), req, res)
 	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestAddCategory(t *testing.T) {
+	// req := &categoryPB.Request{
+	// 	Category: &categoryPB.Category{
+	// 		Name:   `洗化-1`,
+	// 		Parent: 2,
+	// 	},
+	// }
+
+	// res := &categoryPB.Response{}
+	// h := &hander.Category{&service.Category{db.DB}}
+	// err := h.Create(context.TODO(), req, res)
+	// fmt.Println(err, res)
+	// t.Log(t, err)
+}
+func TestAllCategory(t *testing.T) {
+	req := &categoryPB.Request{
+		Category: &categoryPB.Category{},
+	}
+
+	res := &categoryPB.Response{}
+	h := &hander.Category{&service.Category{db.DB}}
+	err := h.All(context.TODO(), req, res)
+	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestListCategory(t *testing.T) {
+	req := &categoryPB.Request{
+		Category: &categoryPB.Category{
+			Parent: 2,
+		},
+	}
+
+	res := &categoryPB.Response{}
+	h := &hander.Category{&service.Category{db.DB}}
+	err := h.List(context.TODO(), req, res)
+	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestGetCategory(t *testing.T) {
+	req := &categoryPB.Request{
+		Category: &categoryPB.Category{
+			Id: 2,
+		},
+	}
+
+	res := &categoryPB.Response{}
+	h := &hander.Category{&service.Category{db.DB}}
+	err := h.Get(context.TODO(), req, res)
+	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestUpdateCategory(t *testing.T) {
+	req := &categoryPB.Request{
+		Category: &categoryPB.Category{
+			Id:   4,
+			Name: `牙膏`,
+		},
+	}
+
+	res := &categoryPB.Response{}
+	h := &hander.Category{&service.Category{db.DB}}
+	err := h.Update(context.TODO(), req, res)
+	// fmt.Println(err, res)
+	t.Log(t, err)
+}
+
+func TestDeleteCategory(t *testing.T) {
+	req := &categoryPB.Request{
+		Category: &categoryPB.Category{
+			Id: 3,
+		},
+	}
+
+	res := &categoryPB.Response{}
+	h := &hander.Category{&service.Category{db.DB}}
+	err := h.Delete(context.TODO(), req, res)
+	fmt.Println(err, res)
 	t.Log(t, err)
 }

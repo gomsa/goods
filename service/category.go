@@ -6,7 +6,6 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/micro/go-micro/util/log"
 
-	categoryPB "github.com/gomsa/goods/proto/category"
 	pb "github.com/gomsa/goods/proto/category"
 )
 
@@ -25,12 +24,7 @@ func (repo *Category) All(req *pb.Category) (categorys []*pb.Category, err error
 }
 
 // List 获取所有分类信息
-func (repo *Category) List(req *categoryPB.Category) (categorys []*pb.Category, err error) {
-	db := repo.DB
-	// 查询条件
-	if req.Id != 0 {
-		db = db.Where("id = ?", req.Id)
-	}
+func (repo *Category) List(req *pb.Category) (categorys []*pb.Category, err error) {
 	if err := repo.DB.Where("parent = ?", req.Parent).Find(&categorys).Error; err != nil {
 		log.Log(err)
 		return nil, err

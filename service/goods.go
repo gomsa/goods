@@ -6,7 +6,6 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/micro/go-micro/util/log"
 
-	goodsPB "github.com/gomsa/goods/proto/goods"
 	pb "github.com/gomsa/goods/proto/goods"
 	"github.com/gomsa/tools/uitl"
 )
@@ -78,7 +77,7 @@ func (repo *Goods) IsGood(good *pb.Good) (bool, error) {
 }
 
 // List 获取所有商品信息
-func (repo *Goods) List(listQuery *goodsPB.ListQuery, good *goodsPB.Good) (goods []*pb.Good, err error) {
+func (repo *Goods) List(listQuery *pb.ListQuery, good *pb.Good) (goods []*pb.Good, err error) {
 	db := repo.DB.Model(&good)
 	// 计算分页
 	limit, offset := uitl.Page(listQuery.Limit, listQuery.Page)

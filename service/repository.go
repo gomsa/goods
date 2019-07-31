@@ -3,6 +3,7 @@ package service
 import (
 	brandPB "github.com/gomsa/goods/proto/brand"
 	categoryPB "github.com/gomsa/goods/proto/category"
+	departmentPB "github.com/gomsa/goods/proto/department"
 	goodsPB "github.com/gomsa/goods/proto/goods"
 )
 
@@ -39,4 +40,14 @@ type CategoryRepository interface {
 	Update(*categoryPB.Category) (bool, error)
 	Delete(*categoryPB.Category) (bool, error)
 	Get(*categoryPB.Category) (*categoryPB.Category, error)
+}
+
+// DepartmentRepository  部门接口
+type DepartmentRepository interface {
+	All(*departmentPB.Department) ([]*departmentPB.Department, error)
+	List(*departmentPB.Department) ([]*departmentPB.Department, error)
+	Create(*departmentPB.Department) (*departmentPB.Department, error)
+	Update(*departmentPB.Department) (bool, error)
+	Delete(*departmentPB.Department) (bool, error)
+	Get(*departmentPB.Department) (*departmentPB.Department, error)
 }

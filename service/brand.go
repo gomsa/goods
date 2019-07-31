@@ -6,7 +6,6 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/micro/go-micro/util/log"
 
-	brandPB "github.com/gomsa/goods/proto/brand"
 	pb "github.com/gomsa/goods/proto/brand"
 	"github.com/gomsa/tools/uitl"
 )
@@ -44,7 +43,7 @@ func (repo *Brand) All(req *pb.Brand) (brands []*pb.Brand, err error) {
 }
 
 // List 获取所有品牌信息
-func (repo *Brand) List(listQuery *brandPB.ListQuery, brand *brandPB.Brand) (brands []*pb.Brand, err error) {
+func (repo *Brand) List(listQuery *pb.ListQuery, brand *pb.Brand) (brands []*pb.Brand, err error) {
 	db := repo.DB.Model(&brand)
 	// 计算分页
 	limit, offset := uitl.Page(listQuery.Limit, listQuery.Page)
