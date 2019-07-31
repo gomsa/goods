@@ -311,6 +311,6 @@ func TestDeleteCategory(t *testing.T) {
 	res := &categoryPB.Response{}
 	h := &hander.Category{&service.Category{db.DB}}
 	err := h.Delete(context.TODO(), req, res)
-	fmt.Println(err, res)
+	// fmt.Println(err, res)
 	t.Log(t, err)
 }
