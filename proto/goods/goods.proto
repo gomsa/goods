@@ -24,26 +24,27 @@ service Goods {
 // 数据库 goods
 message Good {
     string id = 1;                  // 商品ID(UUID)
-    string name = 2;                // 商品名称
-    string eng_name = 3;            // 英文名称
-    string description = 4;                // 商品描述
-    int64 status = 5;               // 商品状态(下架-1、上架1、线上2、外卖3)
-    int64 brand_id = 6;             // 品牌ID
-    int64 category_id = 7;          // 商品分类ID
-    int64 department_id = 8;        // 商品分类ID
-    int64 firm_id = 9;              // 所属公司ID
-    int64 unspsc_id = 10;           // 商品及服务编码
-    int64 taxcode_id = 11;          // 税收分类编码
-    int64 cess = 12;                // 税率
-    string created_at = 13;
-    string updated_at = 14;
-    repeated Barcode barcodes = 15; // 商品条形码详情
-    Brand brand = 16;               // 关联品牌
-    Category category = 17;         // 分类信息
-    Department department = 18;     // 部门信息
-    Firm firm = 19;                 // 所属公司信息
-    Unspsc unspsc = 20;             // 国际商品及服务编码
-    Taxcode taxcode = 21;           // 国家税收信息
+    string code = 2;                // 自编码(货号)
+    string name = 3;                // 商品名称
+    string eng_name = 4;            // 英文名称
+    string description = 5;         // 商品描述
+    int64 status = 6;               // 商品状态(下架-1、上架1、线上2、外卖3)
+    int64 brand_id = 7;             // 品牌ID
+    int64 category_id = 8;          // 商品分类ID
+    int64 department_id = 9;        // 商品分类ID
+    int64 firm_id = 10;              // 所属公司ID
+    int64 unspsc_id = 11;           // 商品及服务编码
+    int64 taxcode_id = 12;          // 税收分类编码
+    int64 cess = 13;                // 税率
+    string created_at = 14;
+    string updated_at = 15;
+    repeated Barcode barcodes = 16; // 商品条形码详情
+    Brand brand = 17;               // 关联品牌
+    Category category = 18;         // 分类信息
+    Department department = 19;     // 部门信息
+    Firm firm = 20;                 // 所属公司信息
+    Unspsc unspsc = 21;             // 国际商品及服务编码
+    Taxcode taxcode = 22;           // 国家税收信息
 }
 
 // 数据库 barcodes

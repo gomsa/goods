@@ -58,6 +58,7 @@ func goods() {
 		db.DB.Exec(`
 			CREATE TABLE goods (
 			id varchar(36) NOT NULL COMMENT '商品ID(UUID)',
+			code varchar(36) NOT NULL COMMENT '商品自编码',
 			name varchar(64) DEFAULT NULL COMMENT '商品名称',
 			eng_name varchar(64) DEFAULT NULL COMMENT '英文名称',
 			description varchar(255) DEFAULT NULL COMMENT '商品描述',
