@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/gomsa/goods/hander"
 	brandPB "github.com/gomsa/goods/proto/brand"
 	categoryPB "github.com/gomsa/goods/proto/category"
 	goodsPB "github.com/gomsa/goods/proto/goods"
 
-	"github.com/gomsa/goods/hander"
 	db "github.com/gomsa/goods/providers/database"
 	"github.com/gomsa/goods/service"
 )
@@ -17,18 +17,19 @@ import (
 func TestAddGoods(t *testing.T) {
 	req := &goodsPB.Request{
 		Good: &goodsPB.Good{
+			Code:        `10084`,
 			Name:        `测试商品2`,
 			EngName:     `goods`,
 			Description: `描述1`,
 			Cess:        0,
 			Barcodes: []*goodsPB.Barcode{
 				{
-					Id:      `6152340210121`,
+					Id:      `61523402101211`,
 					StockId: `asdas1s23123`,
 					Price:   11000,
 				},
 				{
-					Id:      `61523402120231`,
+					Id:      `615234021202312`,
 					StockId: `asdas1s23123`,
 					Price:   11000,
 				},
@@ -313,4 +314,19 @@ func TestDeleteCategory(t *testing.T) {
 	err := h.Delete(context.TODO(), req, res)
 	// fmt.Println(err, res)
 	t.Log(t, err)
+}
+
+func handerr(f func(a int) interface{}, a int) {
+	response := f(a)
+	fmt.Println(response)
+}
+
+func TestFunc(t *testing.T) {
+	n := 0
+	f := func(a int) interface{} {
+		n += 1
+		return n + a
+	}
+	a := 2
+	handerr(f, a)
 }

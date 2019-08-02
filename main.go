@@ -28,7 +28,7 @@ func main() {
 	)
 	srv.Init()
 
-	// 权限服务实现
+	// 服务实现
 	goodsPB.RegisterGoodsHandler(srv.Server(), &hander.Goods{&service.Goods{db.DB}})
 	brandPB.RegisterBrandsHandler(srv.Server(), &hander.Brand{&service.Brand{db.DB}})
 	firmPB.RegisterFirmsHandler(srv.Server(), &hander.Firm{&service.Firm{db.DB}})
