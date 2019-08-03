@@ -2,9 +2,11 @@ package hander
 
 import (
 	"context"
+	"fmt"
 
 	pb "github.com/gomsa/goods/proto/goods"
 	"github.com/gomsa/goods/service"
+	"github.com/gomsa/tools/uitl"
 )
 
 // Goods 商品结构
@@ -54,6 +56,9 @@ func (srv *Goods) DeleteBarcode(ctx context.Context, req *pb.Request, res *pb.Re
 
 // List 获取所有商品
 func (srv *Goods) List(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	if uitl.IsNil(req.ListQuery) || uitl.IsNil(req.Good) {
+		return fmt.Errorf("非法请求,请检查请求参数是否正确")
+	}
 	goods, err := srv.Repo.List(req.ListQuery, req.Good)
 	if err != nil {
 		return err

@@ -13,12 +13,12 @@ github.com/golang/protobuf/ptypes/struct
 github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/timestamp
-# github.com/gomsa/tools v0.0.0-20190728030143-d6f50b9a663c
+# github.com/gomsa/tools v0.0.0-20190803010621-41e4027d207c
 github.com/gomsa/tools/config
 github.com/gomsa/tools/k8s/client
+github.com/gomsa/tools/uitl
 github.com/gomsa/tools/env
 github.com/gomsa/tools/gorm
-github.com/gomsa/tools/uitl
 # github.com/google/btree v1.0.0
 github.com/google/btree
 # github.com/google/uuid v1.1.1
@@ -68,7 +68,7 @@ github.com/micro/go-grpc/client
 github.com/micro/go-grpc/server
 # github.com/micro/go-log v0.1.0
 github.com/micro/go-log
-# github.com/micro/go-micro v1.7.0
+# github.com/micro/go-micro v1.7.0 => github.com/micro/go-micro v1.7.0
 github.com/micro/go-micro
 github.com/micro/go-micro/util/log
 github.com/micro/go-micro/client

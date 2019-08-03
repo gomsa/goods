@@ -1,6 +1,7 @@
 package uitl
 
-func Page(Limit,Page int64) (limit, offset int64) {
+// Page 分页
+func Page(Limit, Page int64) (limit, offset int64) {
 	if Limit > 0 {
 		limit = Limit
 	} else {
