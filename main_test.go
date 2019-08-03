@@ -70,14 +70,12 @@ func TestListGoods(t *testing.T) {
 	h := &hander.Goods{repo}
 
 	req := &goodsPB.Request{
-		ListQuery: &goodsPB.ListQuery{},
-		Good: &goodsPB.Good{
-			Name: `测试商品1`,
-		},
+		// ListQuery: &goodsPB.ListQuery{},
+		Good: &goodsPB.Good{},
 	}
 	res := &goodsPB.Response{}
 	err := h.List(context.TODO(), req, res)
-	// fmt.Println(err, res)
+	fmt.Println(err, res)
 	t.Log(t, err)
 }
 
