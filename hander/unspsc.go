@@ -2,6 +2,7 @@ package hander
 
 import (
 	"context"
+	"fmt"
 
 	pb "github.com/gomsa/goods/proto/unspsc"
 	"github.com/gomsa/goods/service"
@@ -14,6 +15,10 @@ type Unspsc struct {
 
 // All 获取所有国际商品及服务编码
 func (srv *Unspsc) All(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Unspsc == nil {
+		req.Unspsc = &pb.Unspsc{}
+	}
 	unspscs, err := srv.Repo.All(req.Unspsc)
 	if err != nil {
 		return err
@@ -24,6 +29,10 @@ func (srv *Unspsc) All(ctx context.Context, req *pb.Request, res *pb.Response) (
 
 // List 获取所有国际商品及服务编码
 func (srv *Unspsc) List(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Unspsc == nil {
+		req.Unspsc = &pb.Unspsc{}
+	}
 	unspscs, err := srv.Repo.List(req.Unspsc)
 	if err != nil {
 		return err
@@ -34,6 +43,10 @@ func (srv *Unspsc) List(ctx context.Context, req *pb.Request, res *pb.Response) 
 
 // Get 获取国际商品及服务编码
 func (srv *Unspsc) Get(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Unspsc == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	unspsc, err := srv.Repo.Get(req.Unspsc)
 	if err != nil {
 		return err
@@ -44,6 +57,10 @@ func (srv *Unspsc) Get(ctx context.Context, req *pb.Request, res *pb.Response) (
 
 // Create 创建国际商品及服务编码
 func (srv *Unspsc) Create(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Unspsc == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	unspsc, err := srv.Repo.Create(req.Unspsc)
 	if err != nil {
 		res.Valid = false
@@ -56,6 +73,10 @@ func (srv *Unspsc) Create(ctx context.Context, req *pb.Request, res *pb.Response
 
 // Update 更新国际商品及服务编码
 func (srv *Unspsc) Update(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Unspsc == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.Update(req.Unspsc)
 	if err != nil {
 		res.Valid = false
@@ -67,6 +88,10 @@ func (srv *Unspsc) Update(ctx context.Context, req *pb.Request, res *pb.Response
 
 // Delete 删除国际商品及服务编码国际商品及服务编码
 func (srv *Unspsc) Delete(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Unspsc == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.Delete(req.Unspsc)
 	if err != nil {
 		res.Valid = false

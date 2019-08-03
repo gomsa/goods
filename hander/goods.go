@@ -2,6 +2,7 @@ package hander
 
 import (
 	"context"
+	"fmt"
 
 	pb "github.com/gomsa/goods/proto/goods"
 	"github.com/gomsa/goods/service"
@@ -14,6 +15,10 @@ type Goods struct {
 
 // GoodsByBarcode 根据条形码查询商品
 func (srv *Goods) GoodsByBarcode(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Barcode == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	// 获取条形码商品 ID
 	barcode, err := srv.Repo.GetBarcode(req.Barcode)
 	if err != nil {
@@ -32,6 +37,10 @@ func (srv *Goods) GoodsByBarcode(ctx context.Context, req *pb.Request, res *pb.R
 
 // Exist 查询条码是否存在
 func (srv *Goods) Exist(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Good == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.Exist(req.Good)
 	if err != nil {
 		res.Valid = false
@@ -43,6 +52,10 @@ func (srv *Goods) Exist(ctx context.Context, req *pb.Request, res *pb.Response) 
 
 // DeleteBarcode 删除条码
 func (srv *Goods) DeleteBarcode(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Barcode == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.DeleteBarcode(req.Barcode)
 	if err != nil {
 		res.Valid = false
@@ -71,6 +84,10 @@ func (srv *Goods) List(ctx context.Context, req *pb.Request, res *pb.Response) (
 
 // Get 获取商品
 func (srv *Goods) Get(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Good == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	good, err := srv.Repo.Get(req.Good)
 	if err != nil {
 		return err
@@ -81,6 +98,10 @@ func (srv *Goods) Get(ctx context.Context, req *pb.Request, res *pb.Response) (e
 
 // Create 创建商品
 func (srv *Goods) Create(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Good == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	good, err := srv.Repo.Create(req.Good)
 	if err != nil {
 		res.Valid = false
@@ -93,6 +114,10 @@ func (srv *Goods) Create(ctx context.Context, req *pb.Request, res *pb.Response)
 
 // Update 更新商品
 func (srv *Goods) Update(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Good == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.Update(req.Good)
 	if err != nil {
 		res.Valid = false
@@ -104,6 +129,10 @@ func (srv *Goods) Update(ctx context.Context, req *pb.Request, res *pb.Response)
 
 // Delete 删除商品商品
 func (srv *Goods) Delete(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Good == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.Delete(req.Good)
 	if err != nil {
 		res.Valid = false

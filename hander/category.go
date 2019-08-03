@@ -2,6 +2,7 @@ package hander
 
 import (
 	"context"
+	"fmt"
 
 	pb "github.com/gomsa/goods/proto/category"
 	"github.com/gomsa/goods/service"
@@ -14,6 +15,10 @@ type Category struct {
 
 // All 获取所有分类
 func (srv *Category) All(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Category == nil {
+		req.Category = &pb.Category{}
+	}
 	categorys, err := srv.Repo.All(req.Category)
 	if err != nil {
 		return err
@@ -24,6 +29,10 @@ func (srv *Category) All(ctx context.Context, req *pb.Request, res *pb.Response)
 
 // List 获取所有分类
 func (srv *Category) List(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Category == nil {
+		req.Category = &pb.Category{}
+	}
 	categorys, err := srv.Repo.List(req.Category)
 	if err != nil {
 		return err
@@ -34,6 +43,10 @@ func (srv *Category) List(ctx context.Context, req *pb.Request, res *pb.Response
 
 // Get 获取分类
 func (srv *Category) Get(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Category == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	category, err := srv.Repo.Get(req.Category)
 	if err != nil {
 		return err
@@ -44,6 +57,10 @@ func (srv *Category) Get(ctx context.Context, req *pb.Request, res *pb.Response)
 
 // Create 创建分类
 func (srv *Category) Create(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Category == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	category, err := srv.Repo.Create(req.Category)
 	if err != nil {
 		res.Valid = false
@@ -56,6 +73,10 @@ func (srv *Category) Create(ctx context.Context, req *pb.Request, res *pb.Respon
 
 // Update 更新分类
 func (srv *Category) Update(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Category == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.Update(req.Category)
 	if err != nil {
 		res.Valid = false
@@ -67,6 +88,10 @@ func (srv *Category) Update(ctx context.Context, req *pb.Request, res *pb.Respon
 
 // Delete 删除分类分类
 func (srv *Category) Delete(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Category == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.Delete(req.Category)
 	if err != nil {
 		res.Valid = false

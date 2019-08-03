@@ -2,6 +2,7 @@ package hander
 
 import (
 	"context"
+	"fmt"
 
 	pb "github.com/gomsa/goods/proto/department"
 	"github.com/gomsa/goods/service"
@@ -14,6 +15,10 @@ type Department struct {
 
 // All 获取所有部门
 func (srv *Department) All(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Department == nil {
+		req.Department = &pb.Department{}
+	}
 	departments, err := srv.Repo.All(req.Department)
 	if err != nil {
 		return err
@@ -24,6 +29,10 @@ func (srv *Department) All(ctx context.Context, req *pb.Request, res *pb.Respons
 
 // List 获取所有部门
 func (srv *Department) List(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Department == nil {
+		req.Department = &pb.Department{}
+	}
 	departments, err := srv.Repo.List(req.Department)
 	if err != nil {
 		return err
@@ -34,6 +43,10 @@ func (srv *Department) List(ctx context.Context, req *pb.Request, res *pb.Respon
 
 // Get 获取部门
 func (srv *Department) Get(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Department == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	department, err := srv.Repo.Get(req.Department)
 	if err != nil {
 		return err
@@ -44,6 +57,10 @@ func (srv *Department) Get(ctx context.Context, req *pb.Request, res *pb.Respons
 
 // Create 创建部门
 func (srv *Department) Create(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Department == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	department, err := srv.Repo.Create(req.Department)
 	if err != nil {
 		res.Valid = false
@@ -56,6 +73,10 @@ func (srv *Department) Create(ctx context.Context, req *pb.Request, res *pb.Resp
 
 // Update 更新部门
 func (srv *Department) Update(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Department == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.Update(req.Department)
 	if err != nil {
 		res.Valid = false
@@ -67,6 +88,10 @@ func (srv *Department) Update(ctx context.Context, req *pb.Request, res *pb.Resp
 
 // Delete 删除部门部门
 func (srv *Department) Delete(ctx context.Context, req *pb.Request, res *pb.Response) (err error) {
+	// 防止空指针报错
+	if req.Department == nil {
+		return fmt.Errorf("请求参数错误")
+	}
 	valid, err := srv.Repo.Delete(req.Department)
 	if err != nil {
 		res.Valid = false
