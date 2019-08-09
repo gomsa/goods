@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"testing"
 
@@ -15,6 +16,8 @@ import (
 )
 
 func TestAddGoods(t *testing.T) {
+	imgage, _ := json.Marshal([]string{"asasasas", "asasasas11"})
+	fmt.Println(imgage)
 	req := &goodsPB.Request{
 		Good: &goodsPB.Good{
 			Code:        `10084`,
@@ -32,6 +35,7 @@ func TestAddGoods(t *testing.T) {
 					Id:      `615234021202312`,
 					StockId: `asdas1s23123`,
 					Price:   11000,
+					Imgage:  string(imgage),
 				},
 			},
 		},

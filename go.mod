@@ -3,6 +3,7 @@ module github.com/gomsa/goods
 go 1.12
 
 require (
+	github.com/bigrocs/barcode v0.0.0-20190807100212-1feccf490633 // indirect
 	github.com/golang/protobuf v1.3.2
 	github.com/gomsa/tools v0.0.0-20190803010621-41e4027d207c
 	github.com/gomsa/user v0.0.0-20190713014816-bcd837144465 // indirect
