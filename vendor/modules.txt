@@ -1,5 +1,10 @@
 # github.com/armon/go-metrics v0.0.0-20190430140413-ec5e00d3c878
 github.com/armon/go-metrics
+# github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
+github.com/axgle/mahonia
+# github.com/bigrocs/barcode v0.0.0-20190809083253-fae6bd05b0de
+github.com/bigrocs/barcode/drives
+github.com/bigrocs/barcode/data
 # github.com/go-log/log v0.1.0
 github.com/go-log/log
 github.com/go-log/log/log
@@ -8,17 +13,16 @@ github.com/go-sql-driver/mysql
 # github.com/golang/protobuf v1.3.2
 github.com/golang/protobuf/proto
 github.com/golang/protobuf/jsonpb
-github.com/golang/protobuf/ptypes
 github.com/golang/protobuf/ptypes/struct
+github.com/golang/protobuf/ptypes
 github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/timestamp
-# github.com/gomsa/tools v0.0.0-20190803010621-41e4027d207c
+# github.com/gomsa/tools v0.0.0-20190808000024-44c2fc0e494a
 github.com/gomsa/tools/config
-github.com/gomsa/tools/k8s/client
-github.com/gomsa/tools/uitl
 github.com/gomsa/tools/env
 github.com/gomsa/tools/gorm
+github.com/gomsa/tools/uitl
 # github.com/google/btree v1.0.0
 github.com/google/btree
 # github.com/google/uuid v1.1.1
@@ -68,7 +72,7 @@ github.com/micro/go-grpc/client
 github.com/micro/go-grpc/server
 # github.com/micro/go-log v0.1.0
 github.com/micro/go-log
-# github.com/micro/go-micro v1.7.0 => github.com/micro/go-micro v1.7.0
+# github.com/micro/go-micro v0.25.0 => github.com/micro/go-micro v1.7.0
 github.com/micro/go-micro
 github.com/micro/go-micro/util/log
 github.com/micro/go-micro/client
@@ -115,13 +119,13 @@ github.com/micro/go-micro/transport/grpc/proto
 # github.com/micro/go-plugins v0.24.1
 github.com/micro/go-plugins/registry/kubernetes
 github.com/micro/go-plugins/selector/static
-github.com/micro/go-plugins/broker/grpc
 github.com/micro/go-plugins/client/grpc
 github.com/micro/go-plugins/server/grpc
 github.com/micro/go-plugins/registry/kubernetes/client
 github.com/micro/go-plugins/registry/kubernetes/client/watch
-github.com/micro/go-plugins/broker/grpc/proto
+github.com/micro/go-plugins/broker/grpc
 github.com/micro/go-plugins/registry/kubernetes/client/api
+github.com/micro/go-plugins/broker/grpc/proto
 # github.com/micro/go-rcache v0.1.0
 github.com/micro/go-rcache
 # github.com/micro/kubernetes v0.7.0
@@ -130,9 +134,9 @@ github.com/micro/kubernetes/go/micro
 github.com/micro/mdns
 # github.com/micro/util v0.1.0
 github.com/micro/util/go/lib/addr
+github.com/micro/util/go/lib/grpc
 github.com/micro/util/go/lib/net
 github.com/micro/util/go/lib/tls
-github.com/micro/util/go/lib/grpc
 # github.com/miekg/dns v1.1.14
 github.com/miekg/dns
 # github.com/mitchellh/go-homedir v1.1.0
@@ -159,7 +163,7 @@ github.com/pkg/errors
 github.com/satori/go.uuid
 # github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529
 github.com/sean-/seed
-# golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4
+# golang.org/x/crypto v0.0.0-20190618222545-ea8f1a30c443
 golang.org/x/crypto/ed25519
 golang.org/x/crypto/ed25519/internal/edwards25519
 # golang.org/x/net v0.0.0-20190724013045-ca1201d0de80

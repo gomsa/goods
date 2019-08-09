@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/gomsa/goods/hander"
+	barcodePB "github.com/gomsa/goods/proto/barcode"
 	brandPB "github.com/gomsa/goods/proto/brand"
 	categoryPB "github.com/gomsa/goods/proto/category"
 	goodsPB "github.com/gomsa/goods/proto/goods"
@@ -16,8 +17,10 @@ import (
 )
 
 func TestAddGoods(t *testing.T) {
-	imgage, _ := json.Marshal([]string{"asasasas", "asasasas11"})
-	fmt.Println(imgage)
+	imgage, _ := json.Marshal([]string{
+		"http://www.xxx.com/userfile/uploada/gra/1608153471/06917878036526/06917878036526.7.jpg",
+		"http://www.xxx.com/userfile/uploada/gra/1608153471/06917878036526/06917878036526.8.jpg",
+	})
 	req := &goodsPB.Request{
 		Good: &goodsPB.Good{
 			Code:        `10084`,
@@ -79,7 +82,7 @@ func TestListGoods(t *testing.T) {
 	}
 	res := &goodsPB.Response{}
 	err := h.List(context.TODO(), req, res)
-	fmt.Println(err, res)
+	// fmt.Println(err, res)
 	t.Log(t, err)
 }
 
@@ -115,7 +118,7 @@ func TestGoodsByBarcodeGoods(t *testing.T) {
 	}
 	res := &goodsPB.Response{}
 	err := h.GoodsByBarcode(context.TODO(), req, res)
-	fmt.Println(err, res)
+	// fmt.Println(err, res)
 	t.Log(t, err)
 }
 
@@ -318,17 +321,16 @@ func TestDeleteCategory(t *testing.T) {
 	t.Log(t, err)
 }
 
-func handerr(f func(a int) interface{}, a int) {
-	response := f(a)
-	fmt.Println(response)
-}
-
-func TestFunc(t *testing.T) {
-	n := 0
-	f := func(a int) interface{} {
-		n += 1
-		return n + a
+func TestBarcode(t *testing.T) {
+	req := &barcodePB.Request{
+		Goods: &barcodePB.Goods{
+			Barcode: `6917878036526`,
+		},
 	}
-	a := 2
-	handerr(f, a)
+
+	res := &barcodePB.Response{}
+	h := &hander.Barcode{}
+	err := h.Get(context.TODO(), req, res)
+	fmt.Println(res.Goods, err)
+	t.Log(t, err)
 }

@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package barcodes;
+
+service Barcodes {
+    // 通过条形查询商品信息
+    rpc Get(Request) returns (Response) {}
+}
+
+// Goods
+message Goods {
+    string Barcode = 1;             // 条码
+    string Name = 2;                // 产品名称
+    string EnName = 3;              // 产品英文名称
+    repeated string Image = 4;      // 产品图片
+    string BrandName = 5;           // 品牌
+    string Specification = 6;       // 规格
+    string Unit = 7;                // 单位
+    int64 Width = 8;                // 宽(毫米)
+    int64 Height = 9;               // 高(毫米)
+    int64 Depth = 10;               // 深(毫米)
+    int64 NetWeight = 11;           // 净重(克)
+    int64 GrossWeight = 12;         // 总重(克)
+    int64 Unspsc = 13;              // 商品及服务编码
+    string UnspscName = 14;         // 商品及服务编码分类名称
+    string Source = 15;             // 产地代码
+    string Place = 16;              // 产地
+    string Country = 17;            // 国家
+    string FirmName = 18;           // 公司名称
+    string FirmAddress = 19;        // 公司地址
+    string FirmStatus = 20;         // 公司状态
+}
+
+message Request {
+    Goods goods = 1;            // 商品主信息
+}
+
+message Response {
+    Goods goods = 1;            // 商品详细信息
+    bool valid = 2;             // 操作状态返回
+}

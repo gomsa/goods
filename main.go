@@ -13,6 +13,7 @@ import (
 	"github.com/gomsa/goods/service"
 
 	// 接口引用
+	barcodePB "github.com/gomsa/goods/proto/barcode"
 	brandPB "github.com/gomsa/goods/proto/brand"
 	categoryPB "github.com/gomsa/goods/proto/category"
 	departmentPB "github.com/gomsa/goods/proto/department"
@@ -29,6 +30,7 @@ func main() {
 	srv.Init()
 
 	// 服务实现
+	barcodePB.RegisterBarcodesHandler(srv.Server(), &hander.Barcode{})
 	goodsPB.RegisterGoodsHandler(srv.Server(), &hander.Goods{&service.Goods{db.DB}})
 	brandPB.RegisterBrandsHandler(srv.Server(), &hander.Brand{&service.Brand{db.DB}})
 	firmPB.RegisterFirmsHandler(srv.Server(), &hander.Firm{&service.Firm{db.DB}})
