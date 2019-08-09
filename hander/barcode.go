@@ -31,6 +31,7 @@ func (srv *Barcode) Get(ctx context.Context, req *pb.Request, res *pb.Response) 
 	res.Goods.Barcode = req.Goods.Barcode
 	res.Goods.Name = goods.Name
 	res.Goods.EnName = goods.EnName
+	res.Goods.Image = goods.Image
 	res.Goods.BrandName = goods.BrandName
 	res.Goods.Specification = goods.Specification
 	res.Goods.Unit = goods.Unit
