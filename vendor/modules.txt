@@ -2,7 +2,7 @@
 github.com/armon/go-metrics
 # github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
 github.com/axgle/mahonia
-# github.com/bigrocs/barcode v0.0.0-20190809083253-fae6bd05b0de
+# github.com/bigrocs/barcode v0.0.0-20190809234637-abb2e6495080
 github.com/bigrocs/barcode/drives
 github.com/bigrocs/barcode/data
 # github.com/go-log/log v0.1.0
