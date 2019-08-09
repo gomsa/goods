@@ -20,6 +20,7 @@ func (srv *Barcode) Get(ctx context.Context, req *pb.Request, res *pb.Response) 
 		return fmt.Errorf("请求参数错误")
 	}
 	chinatrace := &drives.Chinatrace{
+		ImageHost： "http://anccnet-sync.xilewanggou.com",
 		BaseHost: "http://webapi.chinatrace.org",
 		Key:      "V7N3Xpm4jpRon/WsZ8X/63G8oMeGdUkA8Luxs1CenTY=",
 	}
