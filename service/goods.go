@@ -175,6 +175,14 @@ func (repo *Goods) Related(good *pb.Good) (*pb.Good, error) {
 			return good, err
 		}
 	}
+
+	Department := &pb.Department{}
+	if err := repo.DB.Model(&good).Related(Department).Error; err != nil {
+		if err.Error() != "record not found" {
+			return good, err
+		}
+	}
+
 	Category := &pb.Category{}
 	if err := repo.DB.Model(&good).Related(Category).Error; err != nil {
 		if err.Error() != "record not found" {
