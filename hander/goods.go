@@ -78,7 +78,12 @@ func (srv *Goods) List(ctx context.Context, req *pb.Request, res *pb.Response) (
 	if err != nil {
 		return err
 	}
+	total, err := srv.Repo.Total(req.Good)
+	if err != nil {
+		return err
+	}
 	res.Goods = goods
+	res.Total = total
 	return err
 }
 

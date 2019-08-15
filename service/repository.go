@@ -19,6 +19,7 @@ type GoodRepository interface {
 	IsGood(*goodsPB.Good) (bool, error)
 	Create(*goodsPB.Good) (*goodsPB.Good, error)
 	Get(*goodsPB.Good) (*goodsPB.Good, error)
+	Total(*goodsPB.Good) (int64, error)
 	List(*goodsPB.ListQuery, *goodsPB.Good) ([]*goodsPB.Good, error)
 	Update(*goodsPB.Good) (bool, error)
 	Delete(*goodsPB.Good) (bool, error)
