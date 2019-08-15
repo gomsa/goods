@@ -92,6 +92,9 @@ func (repo *Goods) List(listQuery *pb.ListQuery, good *pb.Good) (goods []*pb.Goo
 	if good.Name != "" {
 		db = db.Where("name like ?", "%"+good.Name+"%")
 	}
+	if good.Code != "" {
+		db = db.Where("code like ?", "%"+good.Code+"%")
+	}
 	if err := db.Order(sort).Limit(limit).Offset(offset).Find(&goods).Error; err != nil {
 		log.Log(err)
 		return goods, err
@@ -101,6 +104,24 @@ func (repo *Goods) List(listQuery *pb.ListQuery, good *pb.Good) (goods []*pb.Goo
 		repo.Related(good)
 	}
 	return goods, err
+}
+
+// Total 获取所有用户查询总量
+func (repo *Goods) Total(good *pb.Good) (total int64, err error) {
+	goods := []pb.Good{}
+	db := repo.DB
+	// 查询条件
+	if good.Name != "" {
+		db = db.Where("name like ?", "%"+good.Name+"%")
+	}
+	if good.Code != "" {
+		db = db.Where("code like ?", "%"+good.Code+"%")
+	}
+	if err := db.Find(&goods).Count(&total).Error; err != nil {
+		log.Log(err)
+		return total, err
+	}
+	return total, nil
 }
 
 // Get 获取商品信息
