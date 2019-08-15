@@ -233,6 +233,7 @@ func (repo *Goods) Related(good *pb.Good) (*pb.Good, error) {
 	}
 
 	good.Brand = Brand
+	good.Department = Department
 	good.Category = Category
 	good.Firm = Firm
 	good.Unspsc = Unspsc
