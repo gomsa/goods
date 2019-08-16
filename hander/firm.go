@@ -19,10 +19,7 @@ func (srv *Firm) Exist(ctx context.Context, req *pb.Request, res *pb.Response) (
 	if req.Firm == nil {
 		return fmt.Errorf("请求参数错误")
 	}
-	valid, err := srv.Repo.Exist(req.Firm)
-	if err != nil {
-		return err
-	}
+	valid := srv.Repo.Exist(req.Firm)
 	res.Valid = valid
 	return err
 }

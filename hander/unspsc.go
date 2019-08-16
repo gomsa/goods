@@ -27,9 +27,9 @@ func (srv *Unspsc) CheckCreate(ctx context.Context, req *pb.Request, res *pb.Res
 	if req.Unspsc.Name == `` {
 		return fmt.Errorf("请求参数 name 为空")
 	}
-	valid, err := srv.Repo.Exist(req.Unspsc)
-	if err != nil {
-		return err
+	valid := srv.Repo.Exist(req.Unspsc)
+	if valid {
+		return fmt.Errorf("%s 国际商品及服务编码已存在", strconv.FormatInt(req.Unspsc.Id, 10))
 	}
 	if !valid {
 		names := strings.Split(req.Unspsc.Name, ">>")
@@ -67,10 +67,7 @@ func (srv *Unspsc) Exist(ctx context.Context, req *pb.Request, res *pb.Response)
 	if req.Unspsc == nil {
 		return fmt.Errorf("请求参数错误")
 	}
-	valid, err := srv.Repo.Exist(req.Unspsc)
-	if err != nil {
-		return err
-	}
+	valid := srv.Repo.Exist(req.Unspsc)
 	res.Valid = valid
 	return err
 }

@@ -16,21 +16,21 @@ type Brand struct {
 }
 
 // Exist 查询品牌是否存在
-func (repo *Brand) Exist(brand *pb.Brand) (bool, error) {
+func (repo *Brand) Exist(brand *pb.Brand) bool {
 	var count int
 	if brand.Id != 0 {
 		repo.DB.Model(&brand).Where("id = ?", brand.Id).Count(&count)
 		if count > 0 {
-			return true, fmt.Errorf("%s 品牌已存在", string(brand.Id))
+			return true
 		}
 	}
 	if brand.Name != "" {
 		repo.DB.Model(&brand).Where("name = ?", brand.Name).Count(&count)
 		if count > 0 {
-			return true, fmt.Errorf("%s 品牌已存在", brand.Name)
+			return true
 		}
 	}
-	return false, nil
+	return false
 }
 
 // All 获取所有品牌信息
@@ -75,8 +75,8 @@ func (repo *Brand) Get(brand *pb.Brand) (*pb.Brand, error) {
 
 // Create 创建品牌
 func (repo *Brand) Create(brand *pb.Brand) (*pb.Brand, error) {
-	if valid, err := repo.Exist(brand); valid {
-		return brand, err
+	if valid := repo.Exist(brand); valid {
+		return brand, fmt.Errorf("品牌已存在")
 	}
 	err := repo.DB.Create(brand).Error
 	if err != nil {
@@ -92,7 +92,7 @@ func (repo *Brand) Update(brand *pb.Brand) (bool, error) {
 	if brand.Id == 0 {
 		return false, fmt.Errorf("请传入操作id")
 	}
-	if valid, _ := repo.Exist(brand); valid {
+	if valid := repo.Exist(brand); valid {
 		id := &pb.Brand{
 			Id: brand.Id,
 		}

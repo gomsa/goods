@@ -16,21 +16,21 @@ type Firm struct {
 }
 
 // Exist 查询商品公司是否存在
-func (repo *Firm) Exist(firm *pb.Firm) (bool, error) {
+func (repo *Firm) Exist(firm *pb.Firm) bool {
 	var count int
 	if firm.Id != 0 {
 		repo.DB.Model(&firm).Where("id = ?", firm.Id).Count(&count)
 		if count > 0 {
-			return true, fmt.Errorf("%s 商品公司已存在", string(firm.Id))
+			return true
 		}
 	}
 	if firm.Name != "" {
 		repo.DB.Model(&firm).Where("name = ?", firm.Name).Count(&count)
 		if count > 0 {
-			return true, fmt.Errorf("%s 商品公司已存在", firm.Name)
+			return true
 		}
 	}
-	return false, nil
+	return false
 }
 
 // All 获取所有商品公司信息
@@ -75,8 +75,8 @@ func (repo *Firm) Get(firm *pb.Firm) (*pb.Firm, error) {
 
 // Create 创建商品公司
 func (repo *Firm) Create(firm *pb.Firm) (*pb.Firm, error) {
-	if valid, err := repo.Exist(firm); valid {
-		return firm, err
+	if valid := repo.Exist(firm); valid {
+		return firm, fmt.Errorf("公司已存在")
 	}
 	err := repo.DB.Create(firm).Error
 	if err != nil {
@@ -92,7 +92,7 @@ func (repo *Firm) Update(firm *pb.Firm) (bool, error) {
 	if firm.Id == 0 {
 		return false, fmt.Errorf("请传入操作id")
 	}
-	if valid, _ := repo.Exist(firm); valid {
+	if valid := repo.Exist(firm); valid {
 		id := &pb.Firm{
 			Id: firm.Id,
 		}

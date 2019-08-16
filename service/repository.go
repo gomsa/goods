@@ -27,7 +27,7 @@ type GoodRepository interface {
 
 // BrandRepository  品牌仓库接口
 type BrandRepository interface {
-	Exist(*brandPB.Brand) (bool, error)
+	Exist(*brandPB.Brand) bool
 	All(*brandPB.Brand) ([]*brandPB.Brand, error)
 	List(*brandPB.ListQuery, *brandPB.Brand) ([]*brandPB.Brand, error)
 	Create(*brandPB.Brand) (*brandPB.Brand, error)
@@ -58,7 +58,7 @@ type DepartmentRepository interface {
 
 // UnspscRepository  国际商品及服务编码接口
 type UnspscRepository interface {
-	Exist(*unspscPB.Unspsc) (bool, error)
+	Exist(*unspscPB.Unspsc) bool
 	All(*unspscPB.Unspsc) ([]*unspscPB.Unspsc, error)
 	List(*unspscPB.Unspsc) ([]*unspscPB.Unspsc, error)
 	Create(*unspscPB.Unspsc) (*unspscPB.Unspsc, error)
@@ -79,7 +79,7 @@ type TaxcodeRepository interface {
 
 // FirmRepository  公司接口
 type FirmRepository interface {
-	Exist(*firmPB.Firm) (bool, error)
+	Exist(*firmPB.Firm) bool
 	All(*firmPB.Firm) ([]*firmPB.Firm, error)
 	List(*firmPB.ListQuery, *firmPB.Firm) ([]*firmPB.Firm, error)
 	Create(*firmPB.Firm) (*firmPB.Firm, error)

@@ -19,10 +19,7 @@ func (srv *Brand) Exist(ctx context.Context, req *pb.Request, res *pb.Response) 
 	if req.Brand == nil {
 		req.Brand = &pb.Brand{}
 	}
-	valid, err := srv.Repo.Exist(req.Brand)
-	if err != nil {
-		return err
-	}
+	valid := srv.Repo.Exist(req.Brand)
 	res.Valid = valid
 	return err
 }
