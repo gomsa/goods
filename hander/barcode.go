@@ -21,8 +21,8 @@ func (srv *Barcode) Get(ctx context.Context, req *pb.Request, res *pb.Response) 
 	}
 	chinatrace := &drives.Chinatrace{
 		ImageHost: "http://anccnet-sync.xilewanggou.com",
-		BaseHost: "http://webapi.chinatrace.org",
-		Key:      "V7N3Xpm4jpRon/WsZ8X/63G8oMeGdUkA8Luxs1CenTY=",
+		BaseHost:  "http://webapi.chinatrace.org",
+		Key:       "V7N3Xpm4jpRon/WsZ8X/63G8oMeGdUkA8Luxs1CenTY=",
 	}
 	goods, err := chinatrace.Get(req.Goods.Barcode)
 	if err != nil {
@@ -32,7 +32,7 @@ func (srv *Barcode) Get(ctx context.Context, req *pb.Request, res *pb.Response) 
 	res.Goods.Barcode = req.Goods.Barcode
 	res.Goods.Name = goods.Name
 	res.Goods.EnName = goods.EnName
-	res.Goods.Image = goods.Image
+	res.Goods.Images = goods.Images
 	res.Goods.BrandName = goods.BrandName
 	res.Goods.Specification = goods.Specification
 	res.Goods.Unit = goods.Unit
