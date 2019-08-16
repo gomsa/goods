@@ -59,7 +59,7 @@ func goods() {
 			id varchar(36) NOT NULL COMMENT '商品ID(UUID)',
 			code varchar(36) NOT NULL COMMENT '商品自编码',
 			name varchar(64) DEFAULT NULL COMMENT '商品名称',
-			eng_name varchar(64) DEFAULT NULL COMMENT '英文名称',
+			en_name varchar(64) DEFAULT NULL COMMENT '英文名称',
 			description varchar(255) DEFAULT NULL COMMENT '商品描述',
 			cess int(8) DEFAULT 0 COMMENT '税率',
 			status  int(11) DEFAULT '-1' COMMENT '商品状态(下架-1、上架1、线上2、外卖3)',
