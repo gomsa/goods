@@ -39,7 +39,7 @@ func barcode() {
 			spec varchar(64) DEFAULT NULL COMMENT '规格',
 			grossweight int(64) DEFAULT 0 COMMENT '总重(克)',
 			netweight int(64) DEFAULT 0 COMMENT '净重(克)',
-			imgage varchar(128) DEFAULT NULL COMMENT '图片',
+			images varchar(128) DEFAULT NULL COMMENT '图片',
 			created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			xxx_unrecognized varbinary(255) DEFAULT NULL,
