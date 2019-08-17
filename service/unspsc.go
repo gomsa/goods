@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/jinzhu/gorm"
 	"github.com/micro/go-micro/util/log"
@@ -12,6 +13,24 @@ import (
 // Unspsc 国际商品及服务编码仓库失效
 type Unspsc struct {
 	DB *gorm.DB
+}
+
+// Exist 查询国际商品及服务编码是否存在
+func (repo *Unspsc) Exist(unspsc *pb.Unspsc) (bool, error) {
+	var count int
+	if unspsc.Id != 0 {
+		repo.DB.Model(&unspsc).Where("id = ?", unspsc.Id).Count(&count)
+		if count > 0 {
+			return true, fmt.Errorf("%s 国际商品及服务编码已存在", strconv.FormatInt(unspsc.Id, 10))
+		}
+	}
+	if unspsc.Name != `` {
+		repo.DB.Model(&unspsc).Where("name = ?", unspsc.Name).Count(&count)
+		if count > 0 {
+			return true, fmt.Errorf("%s 国际商品及服务编码已存在", unspsc.Name)
+		}
+	}
+	return false, nil
 }
 
 // All 获取所有国际商品及服务编码信息
@@ -42,6 +61,9 @@ func (repo *Unspsc) Get(unspsc *pb.Unspsc) (*pb.Unspsc, error) {
 
 // Create 创建国际商品及服务编码
 func (repo *Unspsc) Create(unspsc *pb.Unspsc) (*pb.Unspsc, error) {
+	if valid, err := repo.Exist(unspsc); valid {
+		return unspsc, err
+	}
 	err := repo.DB.Create(unspsc).Error
 	if err != nil {
 		// 写入数据库未知失败记录

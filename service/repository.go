@@ -58,6 +58,7 @@ type DepartmentRepository interface {
 
 // UnspscRepository  国际商品及服务编码接口
 type UnspscRepository interface {
+	Exist(*unspscPB.Unspsc) (bool, error)
 	All(*unspscPB.Unspsc) ([]*unspscPB.Unspsc, error)
 	List(*unspscPB.Unspsc) ([]*unspscPB.Unspsc, error)
 	Create(*unspscPB.Unspsc) (*unspscPB.Unspsc, error)

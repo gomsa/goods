@@ -7,17 +7,17 @@ import (
 	"testing"
 
 	"github.com/gomsa/goods/hander"
-	barcodePB "github.com/gomsa/goods/proto/barcode"
 	brandPB "github.com/gomsa/goods/proto/brand"
 	categoryPB "github.com/gomsa/goods/proto/category"
 	goodsPB "github.com/gomsa/goods/proto/goods"
+	unspscPB "github.com/gomsa/goods/proto/unspsc"
 
 	db "github.com/gomsa/goods/providers/database"
 	"github.com/gomsa/goods/service"
 )
 
 func TestAddGoods(t *testing.T) {
-	imgage, _ := json.Marshal([]string{
+	images, _ := json.Marshal([]string{
 		"http://www.xxx.com/userfile/uploada/gra/1608153471/06917878036526/06917878036526.7.jpg",
 		"http://www.xxx.com/userfile/uploada/gra/1608153471/06917878036526/06917878036526.8.jpg",
 	})
@@ -25,7 +25,7 @@ func TestAddGoods(t *testing.T) {
 		Good: &goodsPB.Good{
 			Code:        `10084`,
 			Name:        `测试商品2`,
-			EngName:     `goods`,
+			EnName:      `goods`,
 			Description: `描述1`,
 			Cess:        0,
 			Barcodes: []*goodsPB.Barcode{
@@ -38,7 +38,7 @@ func TestAddGoods(t *testing.T) {
 					Id:      `615234021202312`,
 					StockId: `asdas1s23123`,
 					Price:   11000,
-					Imgage:  string(imgage),
+					Images:  string(images),
 				},
 			},
 		},
@@ -127,7 +127,7 @@ func TestUpdateGoods(t *testing.T) {
 		Good: &goodsPB.Good{
 			Id:          `9cf86abf-ad72-45e2-ab84-248eb70daf59`,
 			Name:        `测试商品3`,
-			EngName:     `goods`,
+			EnName:      `goods`,
 			Description: `描述1`,
 			Cess:        0,
 			Barcodes: []*goodsPB.Barcode{
@@ -321,16 +321,31 @@ func TestDeleteCategory(t *testing.T) {
 	t.Log(t, err)
 }
 
-func TestBarcode(t *testing.T) {
-	req := &barcodePB.Request{
-		Goods: &barcodePB.Goods{
-			Barcode: `6917878036526`,
+// func TestBarcode(t *testing.T) {
+// 	req := &barcodePB.Request{
+// 		Goods: &barcodePB.Goods{
+// 			Barcode: `6917878036526`,
+// 		},
+// 	}
+
+// 	res := &barcodePB.Response{}
+// 	h := &hander.Barcode{}
+// 	err := h.Get(context.TODO(), req, res)
+// 	// fmt.Println(res.Goods, err)
+// 	t.Log(t, err)
+// }
+
+func TestUnspsc(t *testing.T) {
+	req := &unspscPB.Request{
+		Unspsc: &unspscPB.Unspsc{
+			Id:   52152010,
+			Name: `家用电器和日用电子产品,家用厨具,家用器皿、盛器和存储容器,家用真空瓶`,
 		},
 	}
 
-	res := &barcodePB.Response{}
-	h := &hander.Barcode{}
-	err := h.Get(context.TODO(), req, res)
-	fmt.Println(res.Goods, err)
+	res := &unspscPB.Response{}
+	h := &hander.Unspsc{&service.Unspsc{db.DB}}
+	err := h.CheckCreate(context.TODO(), req, res)
+	fmt.Println(res, err)
 	t.Log(t, err)
 }
