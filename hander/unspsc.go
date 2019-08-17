@@ -32,7 +32,7 @@ func (srv *Unspsc) CheckCreate(ctx context.Context, req *pb.Request, res *pb.Res
 		return err
 	}
 	if !valid {
-		names := strings.Split(req.Unspsc.Name, ",")
+		names := strings.Split(req.Unspsc.Name, ">>")
 		for key, name := range names {
 			// 计算 ID 父 parent
 			// 补位

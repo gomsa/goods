@@ -335,17 +335,31 @@ func TestDeleteCategory(t *testing.T) {
 // 	t.Log(t, err)
 // }
 
-func TestUnspsc(t *testing.T) {
+func TestUnspscCheckCreate(t *testing.T) {
 	req := &unspscPB.Request{
 		Unspsc: &unspscPB.Unspsc{
 			Id:   52152010,
-			Name: `家用电器和日用电子产品,家用厨具,家用器皿、盛器和存储容器,家用真空瓶`,
+			Name: `家用电器和日用电子产品>>家用厨具>>家用器皿、盛器和存储容器>>家用真空瓶`,
 		},
 	}
 
 	res := &unspscPB.Response{}
 	h := &hander.Unspsc{&service.Unspsc{db.DB}}
 	err := h.CheckCreate(context.TODO(), req, res)
+	// fmt.Println(res, err)
+	t.Log(t, err)
+}
+
+func TestUnspscExist(t *testing.T) {
+	req := &unspscPB.Request{
+		Unspsc: &unspscPB.Unspsc{
+			Id: 52152010,
+		},
+	}
+
+	res := &unspscPB.Response{}
+	h := &hander.Unspsc{&service.Unspsc{db.DB}}
+	err := h.Exist(context.TODO(), req, res)
 	fmt.Println(res, err)
 	t.Log(t, err)
 }
