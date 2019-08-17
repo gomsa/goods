@@ -30,6 +30,7 @@ func (repo *Unspsc) Exist(unspsc *pb.Unspsc) (bool, error) {
 			return true, fmt.Errorf("%s 国际商品及服务编码已存在", unspsc.Name)
 		}
 	}
+	log.Log(unspsc, count)
 	return false, nil
 }
 
