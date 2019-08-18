@@ -39,8 +39,8 @@ func (srv *Barcode) Get(ctx context.Context, req *pb.Request, res *pb.Response) 
 	res.Goods.Width = goods.Width
 	res.Goods.Height = goods.Height
 	res.Goods.Depth = goods.Depth
-	res.Goods.NetWeight = goods.NetWeight
-	res.Goods.GrossWeight = goods.GrossWeight
+	res.Goods.Netweight = goods.Netweight
+	res.Goods.Grossweight = goods.Grossweight
 	res.Goods.Unspsc = goods.Unspsc
 	res.Goods.UnspscName = goods.UnspscName
 	res.Goods.Source = goods.Source
