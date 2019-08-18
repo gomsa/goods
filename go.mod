@@ -5,7 +5,7 @@ go 1.12
 replace github.com/micro/go-micro => github.com/micro/go-micro v1.7.0
 
 require (
-	github.com/bigrocs/barcode v0.0.0-20190818030402-bf5477e27f4a
+	github.com/bigrocs/barcode v0.0.0-20190818033158-ed822be4ef69
 	github.com/golang/protobuf v1.3.2
 	github.com/gomsa/tools v0.0.0-20190808000024-44c2fc0e494a
 	github.com/jinzhu/gorm v1.9.10
